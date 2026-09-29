@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Read(//w/home/twentyone/Documents/Evox/Uno/**)"
+    ],
+    "additionalDirectories": [
+      "w:\\home\\twentyone\\Documents\\Evox\\Uno"
+    ]
+  }
+}
