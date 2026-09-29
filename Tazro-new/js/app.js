@@ -6637,7 +6637,7 @@ function forceWeeklyRecapCheck() {
 // ============================================================================
 const ntfState = {
   serverEnabled: true,
-  publicKey: "",
+  publicKey: "BOT5Zz-SeeSKwyzGmdAiVrz0CZovpOnrSqJnnc5lYw_Fg3eBBxvm937kBveXJExTgCvq40DL_CE2jan5h-k0Cu4",
   subscribed: false,
   busy: false,
   prefs: {

@@ -1,4 +1,4 @@
-const CACHE = 'tazro-v13';
+const CACHE = 'tazro-v14';
 const ASSETS = [
   './',
   './index.html',
