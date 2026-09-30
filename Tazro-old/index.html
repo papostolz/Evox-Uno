@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Tazro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#F2F0EB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+  <div class="app-root" id="root-non-pwa" style="display: none;">
+    <div class="app-container center">
+      <img src="../uno-transparent-square-white.png" alt="Tazro">
+      <p>Καλωσορίσατε!</p>
+      <span>Για να συνεχίσετε κατεβάστε το Tazro στη συσκευή σας.</span>
+      <button id="non-pwa-ignore-btn" class="save-btn" type="button" style="width: auto;border-radius: 20px;font-size: 14px;">Παράλειψη</button>
+
+    </div>
+  </div>
+  <div class="app-root" id="root-main">
+
+    <!-- App Container -->
+    <div class="app-container">
+      <div class="main-content">
+
+        <!-- ===== HOME VIEW ===== -->
+        <div class="view active" id="home">
+          <!-- Header -->
+          <div class="home-header animate-in">
+            <div class="home-header-left">
+              <div class="avatar" style="background:linear-gradient(135deg,#C4B5A0,#8B7D6B)"><img id="evx-pfp"
+                  src="tazro.png" alt="EVX"></div>
+              <span class="date-label" id="date-label">Mar 26, Wed</span>
+            </div>
+            <div class="home-header-icons">
+              <span id="sse-dot" class="sse-dot sse-dot--off" title="Offline"></span>
+              <button class="icon-btn" onclick="openChatSheet()">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button onclick="localStorage.clear();window.location.reload()" class="icon-btn">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+                <div class="badge"></div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Greeting -->
+          <div class="greeting animate-in">
+            <h1 id="greeting-text">Hi, Gladys!</h1>
+          </div>
+
+          <!-- Week Calendar -->
+          <div class="week-calendar animate-in">
+            <div class="week-days" id="week-days"></div>
+          </div>
+
+          <!-- People Row -->
+          <div class="people-row animate-in">
+            <div class="people-scroll" id="people-scroll"></div>
+          </div>
+
+          <!-- Balance Card -->
+          <div class="balance-card animate-in">
+            <div class="balance-amount">
+              <span class="amount" id="balance-amount">1,957.43</span>
+              <span class="currency">€</span>
+            </div>
+            <div class="balance-subtitle">Διαθέσιμο υπόλοιπο</div>
+            <!-- <div class="balance-footer">
+            <span class="card-number">**** 8942</span>
+            <button class="edit-btn">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Edit
+            </button>
+          </div> -->
+            <!-- Mini income / expense stats -->
+            <div class="balance-mini-stats">
+              <div class="balance-mini-stat">
+                <div class="mini-dot income"></div>
+                <div class="mini-info">
+                  <div class="mini-label">Εισόδημα</div>
+                  <div class="mini-value income" id="balance-income">—</div>
+                </div>
+              </div>
+              <div class="balance-mini-divider"></div>
+              <div class="balance-mini-stat">
+                <div class="mini-dot expense"></div>
+                <div class="mini-info">
+                  <div class="mini-label">Έξοδα</div>
+                  <div class="mini-value expense" id="balance-expense">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== AI FORECASTING PANEL ===== -->
+          <div class="ai-forecast-card animate-in collapsed" id="ai-forecast-card">
+            <div class="ai-forecast-header" onclick="toggleForecastCard()">
+              <div>
+                <div class="ai-forecast-title">Επερχόμενο Υπόλοιπο</div>
+                <div class="ai-forecast-sub">Βάσει της δραστηριότητάς σου</div>
+              </div>
+              <div class="ai-forecast-header-right">
+                <div class="ai-badge">AI</div>
+                <svg class="ai-forecast-chevron" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewBox="-4.5 0 20 20"
+                  version="1.1">
+
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Dribbble-Light-Preview" transform="translate(-305.000000, -6679.000000)" fill="#ffffff">
+                      <g id="icons" transform="translate(56.000000, 160.000000)">
+                        <path
+                          d="M249.365851,6538.70769 L249.365851,6538.70769 C249.770764,6539.09744 250.426289,6539.09744 250.830166,6538.70769 L259.393407,6530.44413 C260.202198,6529.66364 260.202198,6528.39747 259.393407,6527.61699 L250.768031,6519.29246 C250.367261,6518.90671 249.720021,6518.90172 249.314072,6519.28247 L249.314072,6519.28247 C248.899839,6519.67121 248.894661,6520.31179 249.302681,6520.70653 L257.196934,6528.32352 C257.601847,6528.71426 257.601847,6529.34685 257.196934,6529.73759 L249.365851,6537.29462 C248.960938,6537.68437 248.960938,6538.31795 249.365851,6538.70769"
+                          id="arrow_right-[#336]">
+
+                        </path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div class="ai-forecast-body">
+              <div class="ai-forecast-chart" id="ai-forecast-chart"></div>
+              <div class="ai-forecast-events" id="ai-forecast-events"></div>
+              <div class="ai-forecast-footer" id="ai-forecast-footer"></div>
+            </div>
+          </div>
+
+          <!-- ===== SMART TIPS ===== -->
+          <div class="ai-tips-section animate-in" id="ai-tips-section">
+            <div class="ai-tips-header">
+              <span class="ai-tips-title">Έξυπνες Συμβουλές</span>
+            </div>
+            <div class="ai-tips-list" id="ai-tips-list"></div>
+          </div>
+
+          <!-- Income vs Expenses Flow Card -->
+          <div class="flow-card animate-in" id="flow-card">
+            <div class="flow-card-header">
+              <h3>Ροή Χρημάτων</h3>
+              <span class="flow-period" id="flow-period">Αυτόν τον Μήνα</span>
+            </div>
+
+            <div class="flow-row">
+              <div class="flow-row-header">
+                <span class="flow-row-label">
+                  <span class="flow-dot income"></span>Εισόδημα
+                </span>
+                <span class="flow-amount income" id="flow-income-amount">$0.00</span>
+              </div>
+              <div class="flow-bar-track">
+                <div class="flow-bar-fill income" id="flow-income-bar"></div>
+              </div>
+            </div>
+
+            <div class="flow-row">
+              <div class="flow-row-header">
+                <span class="flow-row-label">
+                  <span class="flow-dot expense"></span>Έξοδα
+                </span>
+                <span class="flow-amount expense" id="flow-expense-amount">$0.00</span>
+              </div>
+              <div class="flow-bar-track">
+                <div class="flow-bar-fill expense" id="flow-expense-bar"></div>
+              </div>
+            </div>
+
+            <div class="flow-divider"></div>
+
+            <div class="flow-net-row">
+              <span class="flow-net-label">Καθαρό αυτόν τον μήνα</span>
+              <span class="flow-net-value" id="flow-net-value">$0.00</span>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="quick-actions animate-in">
+            <div class="actions-grid">
+              <div class="action-item" data-action="send">
+                <div class="action-icon send">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <span>Αποστολή</span>
+              </div>
+              <div class="action-item" data-action="request">
+                <div class="action-icon request">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <span>Αίτημα</span>
+              </div>
+              <div class="action-item" data-action="pay">
+                <div class="action-icon pay">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                </div>
+                <span>Πληρωμή</span>
+              </div>
+              <div class="action-item" data-action="more">
+                <div class="action-icon more">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+                    <circle cx="12" cy="12" r="1" />
+                    <circle cx="19" cy="12" r="1" />
+                    <circle cx="5" cy="12" r="1" />
+                  </svg>
+                </div>
+                <span>Περισσότερα</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Card -->
+          <div class="stats-card animate-in">
+            <div class="stats-header">
+              <div class="stats-period">
+                <span class="num">4</span>
+                <span class="label">Mo.</span>
+              </div>
+              <div class="avatar-stack">
+                <div class="avatar"
+                  style="background:#FF9500;width:26px;height:26px;font-size:10px;border:2px solid white">A</div>
+                <div class="avatar"
+                  style="background:#AF52DE;width:26px;height:26px;font-size:10px;border:2px solid white;margin-left:-8px">
+                  S</div>
+              </div>
+            </div>
+            <div id="mini-chart" class="mini-chart"></div>
+            <div class="stats-values">
+              <div class="stat-item">
+                <div class="stat-label">Κέρδη</div>
+                <div class="stat-value positive" id="stat-earnings">+23.78%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Αποταμίευση</div>
+                <div class="stat-value positive" id="stat-savings">+1.60%</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Επένδυση</div>
+                <div class="stat-value positive" id="stat-investment">+0.89%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Transactions -->
+          <div class="section-header animate-in">
+            <h2 id="recent-title">Πρόσφατα</h2>
+            <button class="see-all" onclick="switchView('transactions')">Δείτε Όλα</button>
+          </div>
+          <div class="transaction-list animate-in" id="recent-transactions"></div>
+
+          <!-- Bottom spacer -->
+          <div style="height:24px"></div>
+        </div>
+
+        <!-- ===== TRANSACTIONS VIEW ===== -->
+        <div class="view" id="transactions">
+          <div class="view-header">
+            <h1>Συναλλαγές</h1>
+            <button class="icon-btn" onclick="switchView('home')">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Search -->
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" stroke-linecap="round" />
+            </svg>
+            <input type="text" id="search-input" placeholder="Αναζήτηση συναλλαγών...">
+          </div>
+
+          <!-- Monthly Summary -->
+          <div class="month-summary">
+            <div class="summary-row">
+              <span class="summary-label">Εισόδημα</span>
+              <span class="summary-value income" id="summary-income">+$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Έξοδα</span>
+              <span class="summary-value expense" id="summary-expense">-$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Καθαρό</span>
+              <span class="summary-value" id="summary-net">$0.00</span>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-chips">
+            <div class="chips-scroll" id="filter-chips"></div>
+          </div>
+
+          <!-- Transaction List -->
+          <div class="transaction-list" id="transaction-list"></div>
+
+          <div style="height:24px"></div>
+        </div>
+
+        <!-- ===== SAVINGS VIEW ===== -->
+        <div class="view" id="savings">
+          <div class="view-header">
+            <h1>Αποταμίευση</h1>
+          </div>
+
+          <!-- Dual balance display -->
+          <div class="dual-balance-row">
+
+            <div class="balance-source-card" id="main-balance-card">
+              <div class="bsc-label">Κύριο</div>
+              <div class="bsc-amount" id="savings-main-balance">$0.00</div>
+              <div class="bsc-sub">Διαθέσιμο</div>
+            </div>
+
+            <!-- Directional arrows -->
+            <div class="xfer-arrows" id="transfer-arrow-indicator">
+              <div class="xfer-arrow xfer-right">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M5 12h14M15 8l4 4-4 4" />
+                </svg>
+              </div>
+              <div class="xfer-arrow xfer-left">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M19 12H5M9 8l-4 4 4 4" />
+                </svg>
+              </div>
+            </div>
+
+            <div class="balance-source-card savings-card" id="savings-balance-card">
+              <div class="bsc-label">Αποταμίευση</div>
+              <div class="bsc-amount" id="savings-amount">$0.00</div>
+              <div class="bsc-sub positive" id="savings-trend">—</div>
+            </div>
+
+          </div>
+
+          <!-- Chart -->
+          <div class="savings-chart">
+            <canvas class="chart-canvas" id="savings-canvas"></canvas>
+          </div>
+
+          <!-- Transfer panel -->
+          <div class="transfer-panel">
+            <div class="transfer-panel-header">
+              <h3>Μεταφορά Χρημάτων</h3>
+              <span class="transfer-panel-hint" id="transfer-panel-hint">από κύριο υπόλοιπο</span>
+            </div>
+
+            <!-- Account selector (same pattern as debts toggle) -->
+            <div class="debt-type-selector savings-account-selector" id="savings-account-selector">
+              <button class="debt-type-btn savings-account-btn active" data-account="main">Κύριο</button>
+              <button class="debt-type-btn savings-account-btn" data-account="savings">Αποταμιευση</button>
+            </div>
+
+            <!-- Amount input -->
+            <div class="transfer-amount-input">
+              <input type="number" id="transfer-amount" placeholder="0.00" step="0.01" min="0">
+            </div>
+
+            <!-- Slider -->
+            <div class="transfer-slider">
+              <input type="range" class="slider-track" id="transfer-slider" min="0" max="100" value="0">
+              <div class="slider-labels">
+                <span>$0</span>
+                <span id="slider-max">—</span>
+              </div>
+            </div>
+
+            <!-- Single action button driven by selected source account -->
+            <div class="transfer-dir-btns">
+              <button class="transfer-dir-btn save" id="transfer-action-btn" onclick="handleTransfer()">
+                <svg id="transfer-action-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M15 8l4 4-4 4" />
+                </svg>
+                <div class="tdb-text">
+                  <span class="tdb-main" id="transfer-action-main">Αποθήκευση</span>
+                  <span class="tdb-sub" id="transfer-action-sub">Κύριο → Αποταμίευση</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Goals -->
+          <div class="section-header">
+            <h2>Στόχοι</h2>
+          </div>
+          <div class="goals-section" id="goals-list"></div>
+
+          <div style="height:24px"></div>
+        </div>
+
+        <!-- ===== DEBTS VIEW ===== -->
+        <div class="view" id="debts">
+          <div class="view-header">
+            <h1>Χρέη</h1>
+            <button class="icon-btn" onclick="openDebtSheet()">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Summary Cards -->
+          <div class="debt-summary">
+            <div class="debt-summary-card owe">
+              <div class="label">Χρωστάω</div>
+              <div class="value" id="total-owed">$0.00</div>
+            </div>
+            <div class="debt-summary-card lent">
+              <div class="label">Μου Χρωστούν</div>
+              <div class="value" id="total-lent">$0.00</div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="debt-tabs">
+            <div class="debt-tab active" data-tab="owe">Χρωστάω</div>
+            <div class="debt-tab" data-tab="lent">Μου Χρωστούν</div>
+          </div>
+
+          <!-- Debt List -->
+          <div class="debt-list" id="debt-list"></div>
+
+          <!-- Add Debt Button -->
+          <button class="add-debt-btn" onclick="openDebtSheet()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span>Προσθήκη Χρέους</span>
+          </button>
+
+          <div style="height:24px"></div>
+        </div>
+
+      </div>
+
+      <!-- ===== TAB BAR ===== -->
+      <div class="tab-nav-shell">
+        <div class="tab-bar" role="tablist" aria-label="Bottom navigation">
+          <div class="tab-item active" data-tab="home">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+              <path
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Αρχική</span>
+          </div>
+          <div class="tab-item" data-tab="transactions">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+              <path
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Ιστορικό</span>
+          </div>
+          <div class="tab-item largetxt" data-tab="savings">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+              <path d="M21 12V7H5a2 2 0 010-4h14v4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M3 5v14a2 2 0 002 2h16v-5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M18 12a2 2 0 100 4h4v-4h-4z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Αποταμίευση</span>
+          </div>
+          <div class="tab-item" data-tab="debts">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+              <path
+                d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Χρέη</span>
+          </div>
+        </div>
+        <button class="fab-add-btn" id="fab-add-btn" aria-label="Προσθήκη συναλλαγής">
+          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" fill="none">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== ADD TRANSACTION SHEET ===== -->
+    <div class="sheet-overlay" id="add-sheet-overlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2>Νέα Συναλλαγή</h2>
+          <button class="sheet-close" onclick="closeAddSheet()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-content">
+
+          <!-- 1. Expense / Income toggle -->
+          <div class="type-toggle">
+            <button class="active" data-type="expense">Έξοδα</button>
+            <button data-type="income">Εισόδημα</button>
+          </div>
+
+          <!-- 2. Live amount display -->
+          <div class="amount-display">
+            <span class="value" id="amount-value">0</span>
+            <span class="cursor"></span>
+            <span class="sign">€</span>
+          </div>
+
+          <!-- 3. Numpad — directly below amount for visual grouping -->
+          <div class="numpad">
+            <button data-key="1">1</button>
+            <button data-key="2">2</button>
+            <button data-key="3">3</button>
+            <button data-key="4">4</button>
+            <button data-key="5">5</button>
+            <button data-key="6">6</button>
+            <button data-key="7">7</button>
+            <button data-key="8">8</button>
+            <button data-key="9">9</button>
+            <button data-key="." class="action-key">.</button>
+            <button data-key="0">0</button>
+            <button data-key="delete" class="action-key">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+                <path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <line x1="18" y1="9" x2="12" y2="15" />
+                <line x1="12" y1="9" x2="18" y2="15" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 4. Title — only text input in the form -->
+          <div class="tx-title-wrap">
+            <input type="text" id="transaction-title" class="tx-title-input" placeholder="Για ποιον λόγο;"
+              maxlength="40" autocomplete="off" autocorrect="off" spellcheck="false">
+            <span class="tx-title-counter" id="tx-title-counter">0 / 40</span>
+          </div>
+
+          <!-- 5. Category picker -->
+          <div class="category-picker">
+            <div class="label">Κατηγορία</div>
+            <div class="category-grid" id="category-grid"></div>
+          </div>
+
+          <!-- 6. Future payment toggle -->
+          <div class="future-payment-row" id="future-payment-row">
+            <div class="future-payment-toggle" id="future-payment-toggle" onclick="toggleFuturePayment()">
+              <div class="future-payment-toggle-left">
+                <div class="future-payment-icon">
+                  <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+                <span class="future-payment-label">Μελλοντική Πληρωμή</span>
+              </div>
+              <div class="future-payment-switch" id="future-payment-switch"></div>
+            </div>
+            <div class="future-payment-date-wrap" id="future-payment-date-wrap">
+              <input type="date" id="future-payment-date" class="future-payment-date-input">
+            </div>
+          </div>
+
+          <!-- 7. Save -->
+          <button class="save-btn" id="save-transaction-btn" disabled onclick="saveTransaction()">
+            Προσθήκη Συναλλαγής
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADD DEBT SHEET ===== -->
+    <div class="sheet-overlay" id="debt-sheet-overlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2>Προσθήκη Χρέους</h2>
+          <button class="sheet-close" onclick="closeDebtSheet()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-content debt-form">
+          <!-- Type -->
+          <div class="debt-type-selector">
+            <button class="debt-type-btn active" data-type="owe">Χρωστάω</button>
+            <button class="debt-type-btn" data-type="lent">Μου Χρωστούν</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Όνομα Ατόμου</label>
+            <input type="text" id="debt-name" placeholder="π.χ. Αλέξης">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Ποσό</label>
+            <input type="number" id="debt-amount" placeholder="0.00" step="0.01" min="0">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Πληροφορίες</label>
+            <textarea id="debt-reason" placeholder="Για ποιον λόγο;"></textarea>
+          </div>
+
+          <button class="save-btn" onclick="saveDebt()">Προσθήκη Χρέους</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADD GOAL SHEET ===== -->
+    <div class="sheet-overlay" id="goal-sheet-overlay">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2>Νέος Στόχος</h2>
+          <button class="sheet-close" onclick="closeGoalSheet()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-content debt-form">
+          <div class="form-group">
+            <label class="form-label">Εικονίδιο</label>
+            <input style="display: none;" type="text" id="goal-icon-input" placeholder="Επιλογή εικονιδίου" readonly>
+            <div class="goal-icon-preview" id="goal-icon-preview" aria-live="polite">
+              <span class="goal-icon-preview-icon" id="goal-icon-preview-icon"><i class="fa-solid fa-bullseye"
+                  aria-hidden="true"></i></span>
+              <span class="goal-icon-preview-text" id="goal-icon-preview-text">fa-solid fa-bullseye</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Όνομα Στόχου</label>
+            <input type="text" id="goal-name-input" placeholder="π.χ. Νέος Υπολογιστής">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Επιθυμητό Ποσό</label>
+            <input type="number" id="goal-target-input" placeholder="0.00" step="0.01" min="0">
+          </div>
+
+          <button class="save-btn" onclick="saveGoal()">Δημιουργία Στόχου</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TRANSACTION DETAIL MODAL ===== -->
+    <div class="glass-modal" id="transaction-detail-modal">
+      <div class="glass-modal-content"></div>
+    </div>
+
+    <!-- ===== FONT AWESOME ICON PICKER ===== -->
+    <div class="glass-modal" id="fa-icon-picker-modal">
+      <div class="glass-modal-content fa-icon-picker-content">
+        <div class="fa-picker-header-row">
+          <h3>Επιλογή Εικονιδίου</h3>
+          <button class="sheet-close" id="fa-picker-close-btn" type="button" aria-label="Κλείσιμο">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <p class="fa-picker-subtitle">Διαθέσιμα δωρεάν Font Awesome icons</p>
+        <input type="text" id="fa-icon-search" class="fa-picker-search"
+          placeholder="Αναζήτηση (π.χ. house, bus, wallet)">
+        <div class="fa-picker-status-row">
+          <span id="fa-picker-count">0 / 0</span>
+          <span id="fa-picker-loading" hidden>Φόρτωση...</span>
+        </div>
+        <div class="fa-icon-grid" id="fa-icon-grid"></div>
+        <button type="button" class="save-btn fa-picker-load-more" id="fa-picker-load-more">Περισσότερα</button>
+      </div>
+    </div>
+
+    <!-- ===== CHAT SHEET ===== -->
+    <div class="sheet-overlay" id="chat-sheet-overlay">
+      <div class="bottom-sheet chat-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2>Μηνύματα</h2>
+          <button class="sheet-close" onclick="closeChatSheet()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="chat-tabs">
+          <div class="chat-tab active" data-chat-tab="ai">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" style="width:14px;height:14px;flex-shrink:0">
+              <path d="M12 2a10 10 0 100 20A10 10 0 0012 2z" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 9h.01M15 9h.01M9.5 13a3.5 3.5 0 005 0" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            AI Assistant
+          </div>
+          <div class="chat-tab" data-chat-tab="friends">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none" style="width:14px;height:14px;flex-shrink:0">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Φίλοι &amp; Αποστολή
+          </div>
+        </div>
+
+        <!-- AI Chat Tab -->
+        <div class="chat-tab-content active" id="chat-ai-tab">
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-input-wrap">
+            <input type="text" id="chat-input" class="chat-input" placeholder="Ρώτα για τα οικονομικά σου..." autocomplete="off">
+            <button class="chat-send-btn" id="chat-send-btn" onclick="sendChatMessage()">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Friends Tab -->
+        <div class="chat-tab-content" id="chat-friends-tab">
+          <div class="chat-search-wrap">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" style="width:16px;height:16px;flex-shrink:0;stroke:var(--text-tertiary)">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35" stroke-linecap="round"/>
+            </svg>
+            <input type="text" id="friends-search" class="chat-friends-search" placeholder="Αναζήτηση χρηστών Evox..." autocomplete="off">
+          </div>
+          <div class="friends-list" id="friends-list">
+            <div class="friends-empty">
+              <i class="fa-solid fa-user-plus" style="font-size:28px;color:var(--text-tertiary)"></i>
+              <p>Αναζήτησε χρήστες από το Evox Ecosystem για να στείλεις χρήματα.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SEND TO FRIEND SHEET ===== -->
+    <div class="sheet-overlay" id="send-friend-modal">
+      <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-header">
+          <h2>Αποστολή</h2>
+          <button class="sheet-close" onclick="closeSendFriendModal()">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-content">
+
+          <!-- Recipient chip -->
+          <div class="send-recipient-row">
+            <span class="send-to-label">Προς</span>
+            <div class="send-recipient-chip">
+              <div class="send-friend-avatar" id="send-friend-avatar"></div>
+              <span class="send-friend-name" id="send-friend-name">—</span>
+            </div>
+          </div>
+
+          <!-- Amount display -->
+          <div class="amount-display" id="send-amount-display">
+            <span class="value" id="send-amount-value">0</span>
+            <span class="cursor"></span>
+            <span class="sign">€</span>
+          </div>
+
+          <!-- Numpad -->
+          <div class="numpad" id="send-numpad">
+            <button data-send-key="1">1</button>
+            <button data-send-key="2">2</button>
+            <button data-send-key="3">3</button>
+            <button data-send-key="4">4</button>
+            <button data-send-key="5">5</button>
+            <button data-send-key="6">6</button>
+            <button data-send-key="7">7</button>
+            <button data-send-key="8">8</button>
+            <button data-send-key="9">9</button>
+            <button data-send-key="." class="action-key">.</button>
+            <button data-send-key="0">0</button>
+            <button data-send-key="delete" class="action-key">
+              <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" fill="none">
+                <path d="M21 4H8l-7 8 7 8h13a2 2 0 002-2V6a2 2 0 00-2-2z" stroke-linecap="round" stroke-linejoin="round" />
+                <line x1="18" y1="9" x2="12" y2="15" />
+                <line x1="12" y1="9" x2="18" y2="15" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Note -->
+          <div class="tx-title-wrap">
+            <input type="text" id="send-friend-note" class="tx-title-input" placeholder="Σημείωση..."
+              maxlength="60" autocomplete="off" autocorrect="off" spellcheck="false">
+          </div>
+
+          <!-- Send button -->
+          <button class="save-btn" id="send-friend-btn" disabled onclick="confirmSendToFriend()">
+            Αποστολή
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast">
+      <span class="toast-icon"></span>
+      <span class="toast-message"></span>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => { });
+      });
+    }
+  </script>
+</body>
+
+</html>
