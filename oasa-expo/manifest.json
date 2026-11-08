@@ -1,0 +1,25 @@
+{
+  "name": "OASA Live",
+  "short_name": "OASA",
+  "description": "Πραγματικός χρόνος λεωφορείων ΟΑΣΑ",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f111e",
+  "theme_color": "#0f111e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
