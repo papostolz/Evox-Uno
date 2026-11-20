@@ -3,7 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
   <title>Evox Uno - Coming Soon</title>
 
   <link rel="stylesheet" href="./evox-index/style.css">
@@ -18,30 +21,19 @@
   <meta property="og:description"
     content="Evox Uno is currently under development. Stay tuned for the next evolution in the Evox ecosystem.">
   <meta name="apple-mobile-web-app-capable" content="yes">
-
-  <style>
-
-  </style>
 </head>
 
 <body>
 
   <nav>
-    <div class="nav-logo">
-      <img src="/uno-transparent-square-white.png" alt="Evox Logo">Evox Uno
-    </div>
+    <a class="nav-logo" href="#top" aria-label="Evox Uno">
+      <img src="/uno-transparent-square-white.png" alt="">Evox Uno
+    </a>
     <div class="nav-links">
-      <a href="#about" data-i18n="nav_hub">About Uno</a>
-      <a href="#capabilities" data-i18n="nav_about">Capabilities</a>
-      <a href="#roadmap" data-i18n="nav_contact">Roadmap</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
 
-      <div id="login" onclick="window.location.href = './login/'" class="custom-select">
-        <div class="button-login">
-          <span>Login</span>
-
-        </div>
-
-      </div>
+      <a id="login" class="button-login" href="./login/">Login</a>
       <div style="display: none;" class="loggedIn" id="userMenu">
         <button type="button" class="user-dropdown-toggle" aria-haspopup="true" aria-expanded="false"
           aria-controls="userDropdownMenu">
@@ -57,277 +49,132 @@
     </div>
   </nav>
 
-  <!-- ─── HERO ─── -->
-  <section class="uno-hero">
-    <div class="hero-glow"></div>
+  <main id="top">
+    <!-- Hero -->
+    <section class="uno-hero">
+      <span class="status">In development</span>
 
-    <div class="status-pills">
-      <span class="pill blue"><span class="pill-dot"></span> In Development</span>
-      <span class="pill purple"><span class="pill-dot"></span> Pre-Alpha</span>
-      <span class="pill orange"><span class="pill-dot"></span> Private Build</span>
-    </div>
+      <h1>Evox Uno</h1>
+      <p class="subtitle">A new way to build and run Evox apps, on every device.</p>
 
-    <h1>Evox Uno</h1>
-    <p class="subtitle">The next-generation unified platform that brings every Evox service together into one seamless
-      experience.</p>
-
-    <div class="progress-wrapper">
-      <div class="progress-header">
-        <span>Overall Progress</span>
-        <span>2 %</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── STATS RIBBON ─── -->
-  <section class="stats-ribbon">
-    <div class="ribbon-stat">
-      <span class="num">2%</span>
-      <span class="label">Built</span>
-    </div>
-    <div class="ribbon-stat">
-      <span class="num">Q4</span>
-      <span class="label">Target</span>
-    </div>
-    <div class="ribbon-stat">
-      <span class="num">6</span>
-      <span class="label">Core Modules</span>
-    </div>
-    <div class="ribbon-stat">
-      <span class="num">3</span>
-      <span class="label">Platforms</span>
-    </div>
-  </section>
-
-  <!-- ─── ABOUT CARD ─── -->
-  <section id="about" class="about-section">
-    <div class="about-header">
-      <span class="badge ongoing">Under Development</span>
-      <h2>The truth behind <vox style="text-decoration:underline solid;">Evox</vox>
-      </h2>
-      <p class="description">
-        Evox started in 2019 as a small project focused on creating useful apps for personal and everyday use.
-        Most of these apps were built using pure HTML, CSS, and JavaScript, without any frameworks.
-        While this approach worked well at the time, modern applications require better performance and scalability.<br>
-        Evox Uno introduces a new way of building apps, focused on speed, user experience, and quality.<br>
-        With Evox Uno, users can enjoy Evox apps beyond the browser, with full support across all devices.</p>
-    </div>
-
-    <div class="about-grid" style="display: flex; justify-content: center;">
-      <div class="about-card wide"
-        style="max-width: 860px; flex-direction: column; text-align: center; gap: 28px; padding: 50px;">
-        <div class="about-content">
-          <h3>The Vision</h3>
-          <p style="margin-top: 14px;">
-            Our vision for Evox is simple: build fast, reliable apps that feel effortless to use.<br>
-            We believe software should be accessible everywhere, not limited by browsers, devices, or complex
-            setups.<br>
-
-          </p>
-          <p style="margin-top: 14px;">
-            With Evox Uno, we aim to create a platform where apps are lightweight, performant, and designed with the
-            user experience first.<br>
-            The goal is to continuously evolve Evox into a modern ecosystem of tools that simplify everyday tasks and
-            connect people through intuitive technology.
-          </p>
-
-          <div class="tech-row">
-            <span class="tech-badge">IOS</span>
-            <span class="tech-badge">Android</span>
-            <span class="tech-badge">MongoDB</span>
-            <span class="tech-badge">End-to-End Encryption</span>
-          </div>
+      <!-- script.js writes the percentage into the last span and sets --progress-value on the fill -->
+      <div class="progress-wrapper">
+        <div class="progress-header">
+          <span>Progress</span>
+          <span>2 %</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ─── FEATURE GRID ─── -->
-  <section id="capabilities" class="about-section" style="margin-top: 0; margin-bottom: 20px;">
-    <div class="about-header">
-      <h2>Core Capabilities</h2>
-      <p>Six pillars powering the Uno experience.</p>
-    </div>
-  </section>
-
-  <div class="feature-grid">
-    <div class="feature-card span-2">
-      <div class="feature-icon blue">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z"
-            stroke="#fff" stroke-width="1.5" />
-          <path d="M12 16V8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
-          <path d="M8 14V10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
-          <path d="M16 14V10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
-        </svg>
+      <div class="actions">
+        <a href="https://evoxs.xyz" class="btn">Return to Evox</a>
+        <a href="https://evoxs.xyz/support" class="text-link">Contact Support</a>
       </div>
-      <h3>Unified Messaging</h3>
-      <p>All your Epsilon conversations, group chats, and channels in one place with real-time delivery, read receipts,
-        and media sharing — no app switching required.</p>
-    </div>
+    </section>
 
-    <div class="feature-card">
-      <div class="feature-icon green"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-          viewBox="0 0 24 24" fill="none">
-          <path
-            d="M4 10C4 6.22876 4 4.34315 5.17157 3.17157C6.34315 2 8.22876 2 12 2C15.7712 2 17.6569 2 18.8284 3.17157C20 4.34315 20 6.22876 20 10V12C20 15.7712 20 17.6569 18.8284 18.8284C17.6569 20 15.7712 20 12 20C8.22876 20 6.34315 20 5.17157 18.8284C4 17.6569 4 15.7712 4 12V10Z"
-            stroke="#FFF" stroke-width="1.5" />
-          <path d="M4 13H20" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M15.5 16H17" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M7 16H8.5" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M6 19.5V21C6 21.5523 6.44772 22 7 22H8.5C9.05228 22 9.5 21.5523 9.5 21V20" stroke="#FFF"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M18 19.5V21C18 21.5523 17.5523 22 17 22H15.5C14.9477 22 14.5 21.5523 14.5 21V20" stroke="#FFF"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M20 9H21C21.5523 9 22 9.44772 22 10V11C22 11.3148 21.8518 11.6111 21.6 11.8L20 13" stroke="#FFF"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M4 9H3C2.44772 9 2 9.44772 2 10V11C2 11.3148 2.14819 11.6111 2.4 11.8L4 13" stroke="#FFF"
-            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M19.5 5H4.5" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" />
-        </svg></div>
-      <h3>Live Transit</h3>
-      <p>OASA real-time bus tracking, route planning, and arrival predictions baked directly into Uno with offline
-        timetable caching.</p>
-    </div>
+    <!-- About (bento) -->
+    <div id="about" class="about">
+      <h2 class="about-title">About Uno</h2>
 
-    <div class="feature-card">
-      <div class="feature-icon purple"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-          viewBox="0 0 24 24" fill="none">
-          <path
-            d="M3.84299 8.12534L11.1877 4.86101C11.7049 4.63118 12.2951 4.63118 12.8123 4.86101L20.157 8.12534C20.4817 8.26962 20.4817 8.73038 20.157 8.87466L12.8123 12.139C12.2951 12.3688 11.7049 12.3688 11.1877 12.139L3.84299 8.87466C3.51835 8.73038 3.51835 8.26962 3.84299 8.12534Z"
-            stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M20.5 8.5V12.5" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M6.5 10.5V15.5C6.5 15.5 7 17.5 12 17.5C17 17.5 17.5 15.5 17.5 15.5V10.5" stroke="#FFF"
-            stroke-linecap="round" stroke-linejoin="round" />
-        </svg></div>
-      <h3>Campus Tools</h3>
-      <p>Jeanne D'Arc school management, yearbook, and peer connection features — integrated with your unified Evox
-        profile.</p>
-    </div>
+      <div class="bento">
+        <article class="tile tile-story">
+          <p class="eyebrow">Where it started</p>
+          <h3>Small apps, built for everyday use.</h3>
+          <p>Evox began in 2019. Most of the early apps were written in plain HTML, CSS and JavaScript, with no
+            frameworks. That worked, but the apps now need to be faster and easier to grow, so Uno rebuilds them on a
+            better foundation.</p>
+        </article>
 
-    <div class="feature-card span-2">
-      <div class="feature-icon orange"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-          viewBox="0 0 24 24" fill="none">
-          <path
-            d="M19.9994 19.2611H10.9294C10.4794 19.2611 10.1094 18.8911 10.1094 18.4411C10.1094 17.9911 10.4794 17.6211 10.9294 17.6211H19.9994C20.4494 17.6211 20.8194 17.9911 20.8194 18.4411C20.8194 18.9011 20.4494 19.2611 19.9994 19.2611Z"
-            fill="#FFF" />
-          <path
-            d="M19.9994 12.9681H10.9294C10.4794 12.9681 10.1094 12.5981 10.1094 12.1481C10.1094 11.6981 10.4794 11.3281 10.9294 11.3281H19.9994C20.4494 11.3281 20.8194 11.6981 20.8194 12.1481C20.8194 12.5981 20.4494 12.9681 19.9994 12.9681Z"
-            fill="#FFF" />
-          <path
-            d="M19.9994 6.67125H10.9294C10.4794 6.67125 10.1094 6.30125 10.1094 5.85125C10.1094 5.40125 10.4794 5.03125 10.9294 5.03125H19.9994C20.4494 5.03125 20.8194 5.40125 20.8194 5.85125C20.8194 6.30125 20.4494 6.67125 19.9994 6.67125Z"
-            fill="#FFF" />
-          <path
-            d="M4.90969 8.03187C4.68969 8.03187 4.47969 7.94187 4.32969 7.79187L3.41969 6.88188C3.09969 6.56188 3.09969 6.04187 3.41969 5.72187C3.73969 5.40187 4.25969 5.40187 4.57969 5.72187L4.90969 6.05188L7.04969 3.91187C7.36969 3.59188 7.88969 3.59188 8.20969 3.91187C8.52969 4.23188 8.52969 4.75188 8.20969 5.07188L5.48969 7.79187C5.32969 7.94187 5.12969 8.03187 4.90969 8.03187Z"
-            fill="#FFF" />
-          <path
-            d="M4.90969 14.3287C4.69969 14.3287 4.48969 14.2487 4.32969 14.0887L3.41969 13.1788C3.09969 12.8588 3.09969 12.3388 3.41969 12.0188C3.73969 11.6988 4.25969 11.6988 4.57969 12.0188L4.90969 12.3488L7.04969 10.2087C7.36969 9.88875 7.88969 9.88875 8.20969 10.2087C8.52969 10.5288 8.52969 11.0487 8.20969 11.3687L5.48969 14.0887C5.32969 14.2487 5.11969 14.3287 4.90969 14.3287Z"
-            fill="#FFF" />
-          <path
-            d="M4.90969 20.3288C4.69969 20.3288 4.48969 20.2488 4.32969 20.0888L3.41969 19.1788C3.09969 18.8588 3.09969 18.3388 3.41969 18.0188C3.73969 17.6988 4.25969 17.6988 4.57969 18.0188L4.90969 18.3488L7.04969 16.2087C7.36969 15.8888 7.88969 15.8888 8.20969 16.2087C8.52969 16.5288 8.52969 17.0488 8.20969 17.3688L5.48969 20.0888C5.32969 20.2488 5.11969 20.3288 4.90969 20.3288Z"
-            fill="#FFF" />
-        </svg></div>
-      <h3>Tasks &amp; Notes</h3>
-      <p>Tasco-powered task lists, notes, and reminders synced across all devices. Create tasks from chat messages or
-        transit alerts with one tap and stay organized effortlessly.</p>
-    </div>
+        <article class="tile tile-platforms">
+          <p class="eyebrow">Beyond the browser</p>
+          <h3>Every device.</h3>
+          <p>Evox apps, outside the browser tab.</p>
+          <div class="tech-row">
+            <span class="tech-badge">iOS</span>
+            <span class="tech-badge">Android</span>
+          </div>
+        </article>
 
-    <div class="feature-card span-2">
-      <div class="feature-icon red"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-          viewBox="0 0 24 24" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M11.5 1C10.9477 1 10.5 1.44772 10.5 2V3H9.99998C7.23864 3 4.99999 5.23825 4.99999 7.99975V11C4.99999 11.7377 4.76718 12.5722 4.39739 13.4148C4.03165 14.2482 3.55876 15.0294 3.14142 15.6439C2.38188 16.7624 2.85216 18.5301 4.40564 18.8103C5.42144 18.9935 6.85701 19.2115 8.54656 19.3527C8.54454 19.4015 8.54352 19.4506 8.54352 19.5C8.54352 21.433 10.1105 23 12.0435 23C13.9765 23 15.5435 21.433 15.5435 19.5C15.5435 19.4482 15.5424 19.3966 15.5402 19.3453C17.1921 19.204 18.596 18.9903 19.5943 18.8103C21.1478 18.5301 21.6181 16.7624 20.8586 15.6439C20.4412 15.0294 19.9683 14.2482 19.6026 13.4148C19.2328 12.5722 19 11.7377 19 11V7.99975C19 5.23825 16.7613 3 14 3H13.5V2C13.5 1.44772 13.0523 1 12.5 1H11.5ZM12 19.5C12.5113 19.5 13.0122 19.4898 13.4997 19.4715C13.5076 20.2758 12.8541 20.9565 12.0435 20.9565C11.2347 20.9565 10.5803 20.2778 10.5872 19.4747C11.0473 19.491 11.5191 19.5 12 19.5ZM9.99998 5C8.34305 5 6.99999 6.34298 6.99999 7.99975V11C6.99999 12.1234 6.65547 13.2463 6.22878 14.2186C5.79804 15.2 5.25528 16.0911 4.79599 16.7675C4.78578 16.7825 4.78102 16.7969 4.77941 16.8113C4.77797 16.8242 4.77919 16.8362 4.78167 16.8458C6.3644 17.1303 9.00044 17.5 12 17.5C14.9995 17.5 17.6356 17.1303 19.2183 16.8458C19.2208 16.8362 19.222 16.8242 19.2206 16.8113C19.2189 16.7969 19.2142 16.7825 19.204 16.7675C18.7447 16.0911 18.2019 15.2 17.7712 14.2186C17.3445 13.2463 17 12.1234 17 11V7.99975C17 6.34298 15.6569 5 14 5H9.99998Z"
-            fill="#FFF" />
-        </svg></div>
-      <h3>Smart Notifications</h3>
-      <p>Florida notification engine aggregates alerts from every module, applies priority rules, and delivers a single
-        noise-free notification stream.</p>
-    </div>
+        <article class="tile tile-vision">
+          <p class="eyebrow">Vision</p>
+          <h3>Fast, reliable, effortless.</h3>
+          <p>Software shouldn&rsquo;t be limited by browsers, devices or complicated setups. Uno aims for apps that are
+            lightweight and performant, and designed around the person using them first.</p>
+        </article>
 
-    <div class="feature-card">
-      <div class="feature-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-          viewBox="0 0 24 24" fill="none">
-          <path opacity="0.6"
-            d="M20.9099 11.1198C20.9099 16.0098 17.3599 20.5898 12.5099 21.9298C12.1799 22.0198 11.8198 22.0198 11.4898 21.9298C6.63984 20.5898 3.08984 16.0098 3.08984 11.1198V6.72979C3.08984 5.90979 3.70986 4.97979 4.47986 4.66979L10.0498 2.38982C11.2998 1.87982 12.7098 1.87982 13.9598 2.38982L19.5298 4.66979C20.2898 4.97979 20.9199 5.90979 20.9199 6.72979L20.9099 11.1198Z"
-            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-          <path
-            d="M10.0399 2.38982C11.2899 1.87982 12.6999 1.87982 13.9499 2.38982L19.5198 4.66979C20.2798 4.97979 20.9099 5.90979 20.9099 6.72979V11.1198C20.9099 16.0098 17.3599 20.5898 12.5099 21.9298C12.1799 22.0198 11.8198 22.0198 11.4898 21.9298C6.63984 20.5898 3.08984 16.0098 3.08984 11.1198"
-            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg></div>
-      <h3>Single Sign-On</h3>
-      <p>One Evox account grants access to every service. Secure, token-based authentication with optional biometric
-        unlock on supported devices.</p>
-    </div>
-  </div>
+        <article class="tile tile-data">
+          <p class="eyebrow">Under the hood</p>
+          <h3>Your data, kept safe.</h3>
+          <p>Accounts and data, with end-to-end encryption planned for private content.</p>
+          <div class="tech-row">
+            <span class="tech-badge">End-to-End Encryption</span>
+          </div>
+        </article>
 
-  <!-- ─── ROADMAP TIMELINE ─── -->
-  <section id="roadmap" class="timeline-section">
-    <h2>Roadmap</h2>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-dot done"></div>
-        <span class="tl-date">Q1 2026 — Completed</span>
-        <h4>Research &amp; Architecture</h4>
-        <p>Defined the modular architecture, selected the tech stack, and mapped integration points across all existing
-          Evox apps.</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot active"></div>
-        <span class="tl-date">Q2 2026 — In Progress</span>
-        <h4>Core Shell &amp; Auth</h4>
-        <p>Building the main application shell, universal navigation, single sign-on flow, and the service-worker layer
-          for offline support.</p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">Q3 2026 — Planned</span>
-        <h4>Module Integration</h4>
-        <p>Plugging Epsilon messaging, OASA transit, and Tasco tasks into the Uno shell with cross-module deep linking.
-        </p>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <span class="tl-date">Q4 2026 — Target</span>
-        <h4>Closed Beta Launch</h4>
-        <p>Invite-only beta for early testers. Collecting feedback, squashing bugs, and fine-tuning performance before
-          the public release.</p>
+        <article class="tile tile-family">
+          <p class="eyebrow">From the Evox family</p>
+          <h3>Familiar apps, one home.</h3>
+          <p>Uno is where the existing Evox apps are meant to come together.</p>
+          <!-- uno-apps.js replaces this with the live catalog; the badges are the fallback -->
+          <div id="uno-apps" class="apps-box">
+            <div class="tech-row">
+              <span class="tech-badge">Epsilon</span>
+              <span class="tech-badge">OASA</span>
+              <span class="tech-badge">Jeanne d&rsquo;Arc</span>
+              <span class="tech-badge">Tasco</span>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
-  </section>
 
-  <!-- ─── CTA ─── -->
-  <section class="notify-section">
-    <div class="notify-card">
-      <h2>Stay in the Loop</h2>
-      <p>Evox Uno is being built in the open. Follow development progress, get early access invitations, and shape the
-        product with your feedback.</p>
-      <div class="notify-actions">
-        <a href="https://evoxs.xyz" class="btn-notify primary">
-          <span>Return to Hub</span>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="transform: rotate(180deg);">
-            <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="black" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </a>
-        <a href="https://evoxs.xyz/support" class="btn-notify secondary">Contact Support</a>
-      </div>
-    </div>
-  </section>
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <h2>Questions</h2>
+
+      <details>
+        <summary>What is Evox Uno?</summary>
+        <p>Uno is a rebuild of Evox. The early apps were written in plain HTML, CSS and JavaScript, and Uno moves them
+          onto a faster foundation that can run outside the browser too.</p>
+      </details>
+
+      <details>
+        <summary>Can I use it yet?</summary>
+        <p>Not yet. Uno is still in development, and the progress bar at the top shows how far along it is.</p>
+      </details>
+
+      <details>
+        <summary>Which devices will it run on?</summary>
+        <p>Uno is being built to run beyond the browser, on iOS and Android as well as the web.</p>
+      </details>
+
+      <details>
+        <summary>Do I need an account?</summary>
+        <p>Yes. You sign in with an Evox account. Once you&rsquo;re logged in, Settings lets you change your profile
+          photo, name and password, and choose which notifications you get.</p>
+      </details>
+
+      <details>
+        <summary>Which apps will be in Uno?</summary>
+        <p>The list is in the Apps tile above. It&rsquo;s loaded from the Uno server, so it shows the current apps
+          when you&rsquo;re signed in.</p>
+      </details>
+
+      <details>
+        <summary>How do I get help or send feedback?</summary>
+        <p>Use <a class="inline-link" href="https://evoxs.xyz/support">Support</a> and we&rsquo;ll get back to you.</p>
+      </details>
+    </section>
+  </main>
 
   <footer>
     <div class="footer-links">
       <a href="https://evoxs.xyz/privacy">Privacy Policy</a>
       <a href="https://evoxs.xyz/support">Support</a>
     </div>
-    <div class="copyright">© 2026 Evox Systems. All rights reserved.</div>
+    <div class="copyright">&copy; 2026 Evox Systems. All rights reserved.</div>
   </footer>
 
 
@@ -456,7 +303,235 @@
   </div>
 
   <script src="script.js"></script>
+  <script src="evox-index/uno-apps.js"></script>
 
+
+  <!-- ==========================================================================
+       REUSABLE COMPONENTS
+       Removed from the page, kept here as inert template blocks so they can be
+       brought back later. Their CSS lives in evox-index/style.css under
+       "Reusable components". To use one:
+         document.body.append(document.getElementById('tpl-roadmap').content.cloneNode(true))
+       Contents are placeholders and not accurate. Review before publishing.
+       ========================================================================== -->
+
+  <template id="tpl-status-pills">
+    <div class="status-pills">
+      <span class="pill blue"><span class="pill-dot"></span> In Development</span>
+      <span class="pill purple"><span class="pill-dot"></span> Pre-Alpha</span>
+      <span class="pill orange"><span class="pill-dot"></span> Private Build</span>
+    </div>
+  </template>
+
+  <template id="tpl-stats">
+  <section class="stats-ribbon">
+    <div class="ribbon-stat">
+      <span class="num">2%</span>
+      <span class="label">Built</span>
+    </div>
+    <div class="ribbon-stat">
+      <span class="num">Q4</span>
+      <span class="label">Target</span>
+    </div>
+    <div class="ribbon-stat">
+      <span class="num">6</span>
+      <span class="label">Core Modules</span>
+    </div>
+    <div class="ribbon-stat">
+      <span class="num">3</span>
+      <span class="label">Platforms</span>
+    </div>
+  </section>
+  </template>
+
+  <template id="tpl-tech-badges">
+          <div class="tech-row">
+            <span class="tech-badge">IOS</span>
+            <span class="tech-badge">Android</span>
+            <span class="tech-badge">MongoDB</span>
+            <span class="tech-badge">End-to-End Encryption</span>
+          </div>
+  </template>
+
+  <template id="tpl-capabilities">
+  <section id="capabilities" class="about-section" style="margin-top: 0; margin-bottom: 20px;">
+    <div class="about-header">
+      <h2>Core Capabilities</h2>
+      <p>Six pillars powering the Uno experience.</p>
+    </div>
+  </section>
+
+  <div class="feature-grid">
+    <div class="feature-card span-2">
+      <div class="feature-icon blue">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z"
+            stroke="#fff" stroke-width="1.5" />
+          <path d="M12 16V8" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M8 14V10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M16 14V10" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+      <h3>Unified Messaging</h3>
+      <p>All your Epsilon conversations, group chats, and channels in one place with real-time delivery, read receipts,
+        and media sharing — no app switching required.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon green"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
+          viewBox="0 0 24 24" fill="none">
+          <path
+            d="M4 10C4 6.22876 4 4.34315 5.17157 3.17157C6.34315 2 8.22876 2 12 2C15.7712 2 17.6569 2 18.8284 3.17157C20 4.34315 20 6.22876 20 10V12C20 15.7712 20 17.6569 18.8284 18.8284C17.6569 20 15.7712 20 12 20C8.22876 20 6.34315 20 5.17157 18.8284C4 17.6569 4 15.7712 4 12V10Z"
+            stroke="#FFF" stroke-width="1.5" />
+          <path d="M4 13H20" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M15.5 16H17" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M7 16H8.5" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 19.5V21C6 21.5523 6.44772 22 7 22H8.5C9.05228 22 9.5 21.5523 9.5 21V20" stroke="#FFF"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M18 19.5V21C18 21.5523 17.5523 22 17 22H15.5C14.9477 22 14.5 21.5523 14.5 21V20" stroke="#FFF"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M20 9H21C21.5523 9 22 9.44772 22 10V11C22 11.3148 21.8518 11.6111 21.6 11.8L20 13" stroke="#FFF"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M4 9H3C2.44772 9 2 9.44772 2 10V11C2 11.3148 2.14819 11.6111 2.4 11.8L4 13" stroke="#FFF"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M19.5 5H4.5" stroke="#FFF" stroke-width="1.5" stroke-linecap="round" />
+        </svg></div>
+      <h3>Live Transit</h3>
+      <p>OASA real-time bus tracking, route planning, and arrival predictions baked directly into Uno with offline
+        timetable caching.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon purple"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
+          viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3.84299 8.12534L11.1877 4.86101C11.7049 4.63118 12.2951 4.63118 12.8123 4.86101L20.157 8.12534C20.4817 8.26962 20.4817 8.73038 20.157 8.87466L12.8123 12.139C12.2951 12.3688 11.7049 12.3688 11.1877 12.139L3.84299 8.87466C3.51835 8.73038 3.51835 8.26962 3.84299 8.12534Z"
+            stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M20.5 8.5V12.5" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6.5 10.5V15.5C6.5 15.5 7 17.5 12 17.5C17 17.5 17.5 15.5 17.5 15.5V10.5" stroke="#FFF"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg></div>
+      <h3>Campus Tools</h3>
+      <p>Jeanne D'Arc school management, yearbook, and peer connection features — integrated with your unified Evox
+        profile.</p>
+    </div>
+
+    <div class="feature-card span-2">
+      <div class="feature-icon orange"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
+          viewBox="0 0 24 24" fill="none">
+          <path
+            d="M19.9994 19.2611H10.9294C10.4794 19.2611 10.1094 18.8911 10.1094 18.4411C10.1094 17.9911 10.4794 17.6211 10.9294 17.6211H19.9994C20.4494 17.6211 20.8194 17.9911 20.8194 18.4411C20.8194 18.9011 20.4494 19.2611 19.9994 19.2611Z"
+            fill="#FFF" />
+          <path
+            d="M19.9994 12.9681H10.9294C10.4794 12.9681 10.1094 12.5981 10.1094 12.1481C10.1094 11.6981 10.4794 11.3281 10.9294 11.3281H19.9994C20.4494 11.3281 20.8194 11.6981 20.8194 12.1481C20.8194 12.5981 20.4494 12.9681 19.9994 12.9681Z"
+            fill="#FFF" />
+          <path
+            d="M19.9994 6.67125H10.9294C10.4794 6.67125 10.1094 6.30125 10.1094 5.85125C10.1094 5.40125 10.4794 5.03125 10.9294 5.03125H19.9994C20.4494 5.03125 20.8194 5.40125 20.8194 5.85125C20.8194 6.30125 20.4494 6.67125 19.9994 6.67125Z"
+            fill="#FFF" />
+          <path
+            d="M4.90969 8.03187C4.68969 8.03187 4.47969 7.94187 4.32969 7.79187L3.41969 6.88188C3.09969 6.56188 3.09969 6.04187 3.41969 5.72187C3.73969 5.40187 4.25969 5.40187 4.57969 5.72187L4.90969 6.05188L7.04969 3.91187C7.36969 3.59188 7.88969 3.59188 8.20969 3.91187C8.52969 4.23188 8.52969 4.75188 8.20969 5.07188L5.48969 7.79187C5.32969 7.94187 5.12969 8.03187 4.90969 8.03187Z"
+            fill="#FFF" />
+          <path
+            d="M4.90969 14.3287C4.69969 14.3287 4.48969 14.2487 4.32969 14.0887L3.41969 13.1788C3.09969 12.8588 3.09969 12.3388 3.41969 12.0188C3.73969 11.6988 4.25969 11.6988 4.57969 12.0188L4.90969 12.3488L7.04969 10.2087C7.36969 9.88875 7.88969 9.88875 8.20969 10.2087C8.52969 10.5288 8.52969 11.0487 8.20969 11.3687L5.48969 14.0887C5.32969 14.2487 5.11969 14.3287 4.90969 14.3287Z"
+            fill="#FFF" />
+          <path
+            d="M4.90969 20.3288C4.69969 20.3288 4.48969 20.2488 4.32969 20.0888L3.41969 19.1788C3.09969 18.8588 3.09969 18.3388 3.41969 18.0188C3.73969 17.6988 4.25969 17.6988 4.57969 18.0188L4.90969 18.3488L7.04969 16.2087C7.36969 15.8888 7.88969 15.8888 8.20969 16.2087C8.52969 16.5288 8.52969 17.0488 8.20969 17.3688L5.48969 20.0888C5.32969 20.2488 5.11969 20.3288 4.90969 20.3288Z"
+            fill="#FFF" />
+        </svg></div>
+      <h3>Tasks &amp; Notes</h3>
+      <p>Tasco-powered task lists, notes, and reminders synced across all devices. Create tasks from chat messages or
+        transit alerts with one tap and stay organized effortlessly.</p>
+    </div>
+
+    <div class="feature-card span-2">
+      <div class="feature-icon red"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
+          viewBox="0 0 24 24" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M11.5 1C10.9477 1 10.5 1.44772 10.5 2V3H9.99998C7.23864 3 4.99999 5.23825 4.99999 7.99975V11C4.99999 11.7377 4.76718 12.5722 4.39739 13.4148C4.03165 14.2482 3.55876 15.0294 3.14142 15.6439C2.38188 16.7624 2.85216 18.5301 4.40564 18.8103C5.42144 18.9935 6.85701 19.2115 8.54656 19.3527C8.54454 19.4015 8.54352 19.4506 8.54352 19.5C8.54352 21.433 10.1105 23 12.0435 23C13.9765 23 15.5435 21.433 15.5435 19.5C15.5435 19.4482 15.5424 19.3966 15.5402 19.3453C17.1921 19.204 18.596 18.9903 19.5943 18.8103C21.1478 18.5301 21.6181 16.7624 20.8586 15.6439C20.4412 15.0294 19.9683 14.2482 19.6026 13.4148C19.2328 12.5722 19 11.7377 19 11V7.99975C19 5.23825 16.7613 3 14 3H13.5V2C13.5 1.44772 13.0523 1 12.5 1H11.5ZM12 19.5C12.5113 19.5 13.0122 19.4898 13.4997 19.4715C13.5076 20.2758 12.8541 20.9565 12.0435 20.9565C11.2347 20.9565 10.5803 20.2778 10.5872 19.4747C11.0473 19.491 11.5191 19.5 12 19.5ZM9.99998 5C8.34305 5 6.99999 6.34298 6.99999 7.99975V11C6.99999 12.1234 6.65547 13.2463 6.22878 14.2186C5.79804 15.2 5.25528 16.0911 4.79599 16.7675C4.78578 16.7825 4.78102 16.7969 4.77941 16.8113C4.77797 16.8242 4.77919 16.8362 4.78167 16.8458C6.3644 17.1303 9.00044 17.5 12 17.5C14.9995 17.5 17.6356 17.1303 19.2183 16.8458C19.2208 16.8362 19.222 16.8242 19.2206 16.8113C19.2189 16.7969 19.2142 16.7825 19.204 16.7675C18.7447 16.0911 18.2019 15.2 17.7712 14.2186C17.3445 13.2463 17 12.1234 17 11V7.99975C17 6.34298 15.6569 5 14 5H9.99998Z"
+            fill="#FFF" />
+        </svg></div>
+      <h3>Smart Notifications</h3>
+      <p>Florida notification engine aggregates alerts from every module, applies priority rules, and delivers a single
+        noise-free notification stream.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
+          viewBox="0 0 24 24" fill="none">
+          <path opacity="0.6"
+            d="M20.9099 11.1198C20.9099 16.0098 17.3599 20.5898 12.5099 21.9298C12.1799 22.0198 11.8198 22.0198 11.4898 21.9298C6.63984 20.5898 3.08984 16.0098 3.08984 11.1198V6.72979C3.08984 5.90979 3.70986 4.97979 4.47986 4.66979L10.0498 2.38982C11.2998 1.87982 12.7098 1.87982 13.9598 2.38982L19.5298 4.66979C20.2898 4.97979 20.9199 5.90979 20.9199 6.72979L20.9099 11.1198Z"
+            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M10.0399 2.38982C11.2899 1.87982 12.6999 1.87982 13.9499 2.38982L19.5198 4.66979C20.2798 4.97979 20.9099 5.90979 20.9099 6.72979V11.1198C20.9099 16.0098 17.3599 20.5898 12.5099 21.9298C12.1799 22.0198 11.8198 22.0198 11.4898 21.9298C6.63984 20.5898 3.08984 16.0098 3.08984 11.1198"
+            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg></div>
+      <h3>Single Sign-On</h3>
+      <p>One Evox account grants access to every service. Secure, token-based authentication with optional biometric
+        unlock on supported devices.</p>
+    </div>
+  </div>
+  </template>
+
+  <template id="tpl-roadmap">
+  <section id="roadmap" class="timeline-section">
+    <h2>Roadmap</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <span class="tl-date">Q1 2026 — Completed</span>
+        <h4>Research &amp; Architecture</h4>
+        <p>Defined the modular architecture, selected the tech stack, and mapped integration points across all existing
+          Evox apps.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot active"></div>
+        <span class="tl-date">Q2 2026 — In Progress</span>
+        <h4>Core Shell &amp; Auth</h4>
+        <p>Building the main application shell, universal navigation, single sign-on flow, and the service-worker layer
+          for offline support.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">Q3 2026 — Planned</span>
+        <h4>Module Integration</h4>
+        <p>Plugging Epsilon messaging, OASA transit, and Tasco tasks into the Uno shell with cross-module deep linking.
+        </p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <span class="tl-date">Q4 2026 — Target</span>
+        <h4>Closed Beta Launch</h4>
+        <p>Invite-only beta for early testers. Collecting feedback, squashing bugs, and fine-tuning performance before
+          the public release.</p>
+      </div>
+    </div>
+  </section>
+  </template>
+
+  <template id="tpl-notify">
+  <section class="notify-section">
+    <div class="notify-card">
+      <h2>Stay in the Loop</h2>
+      <p>Evox Uno is being built in the open. Follow development progress, get early access invitations, and shape the
+        product with your feedback.</p>
+      <div class="notify-actions">
+        <a href="https://evoxs.xyz" class="btn-notify primary">
+          <span>Return to Evox</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="transform: rotate(180deg);">
+            <path d="M1 11L11 1M11 1H3.5M11 1V8.5" stroke="black" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a href="https://evoxs.xyz/support" class="btn-notify secondary">Contact Support</a>
+      </div>
+    </div>
+  </section>
+  </template>
 
 </body>
 
