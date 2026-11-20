@@ -50,7 +50,7 @@
         </button>
         <div class="dropdown" id="userDropdownMenu" role="menu">
           <a href="#" role="menuitem">Profile</a>
-          <a href="#" role="menuitem">Settings</a>
+          <a href="#" id="openSettings" role="menuitem">Settings</a>
           <a onclick="logout()" href="#" role="menuitem">Logout</a>
         </div>
       </div>
@@ -329,6 +329,131 @@
     </div>
     <div class="copyright">© 2026 Evox Systems. All rights reserved.</div>
   </footer>
+
+
+  <!-- ─── ACCOUNT SETTINGS ─── -->
+  <div class="st-overlay" id="settingsModal" hidden>
+    <div class="st-modal" role="dialog" aria-modal="true" aria-labelledby="stTitle" tabindex="-1">
+      <button type="button" class="st-close" id="stClose" aria-label="Close settings">&times;</button>
+      <aside class="st-side">
+        <h2 id="stTitle">Settings</h2>
+        <div class="st-tabs" role="tablist" aria-orientation="vertical">
+          <button type="button" class="st-tab active" role="tab" id="stTab-profile" aria-controls="stPanel-profile" aria-selected="true" data-tab="profile">Profile</button>
+          <button type="button" class="st-tab" role="tab" id="stTab-security" aria-controls="stPanel-security" aria-selected="false" data-tab="security">Security</button>
+          <button type="button" class="st-tab" role="tab" id="stTab-notifications" aria-controls="stPanel-notifications" aria-selected="false" data-tab="notifications">Notifications</button>
+          <button type="button" class="st-tab danger" role="tab" id="stTab-danger" aria-controls="stPanel-danger" aria-selected="false" data-tab="danger">Danger zone</button>
+        </div>
+      </aside>
+
+      <div class="st-main">
+        <div class="st-banner" id="stBanner" hidden></div>
+
+        <!-- Profile -->
+        <section class="st-panel" id="stPanel-profile" role="tabpanel" aria-labelledby="stTab-profile" data-panel="profile">
+          <h3>Profile</h3>
+          <p class="st-lead">How you appear across Evox Uno.</p>
+          <div class="st-avatar-row">
+            <img id="stAvatar" class="st-avatar" src="uno-transparent-square-white.png" alt="Profile picture">
+            <div class="st-avatar-actions">
+              <div class="st-btn-row">
+                <button type="button" class="st-btn" id="stPfpPick">Upload photo</button>
+                <button type="button" class="st-btn ghost" id="stPfpRemove" hidden>Remove</button>
+              </div>
+              <span class="st-hint">PNG, JPEG, WebP or GIF, up to 2&nbsp;MB.</span>
+              <input type="file" id="stPfpInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            </div>
+          </div>
+          <div class="st-msg" id="stMsg-pfp" role="status" aria-live="polite"></div>
+
+          <form id="stProfileForm" novalidate>
+            <label class="st-field">
+              <span>Display name</span>
+              <input type="text" id="stName" maxlength="50" autocomplete="name">
+            </label>
+            <label class="st-field">
+              <span>Username</span>
+              <input type="text" id="stUsername" maxlength="24" autocomplete="username" autocapitalize="none" spellcheck="false">
+              <small>3&ndash;24 characters: letters, numbers, dots or underscores.</small>
+            </label>
+            <label class="st-field">
+              <span>Email</span>
+              <input type="email" id="stEmail" readonly>
+              <small>Your email can&rsquo;t be changed here.</small>
+            </label>
+            <p class="st-note" id="stNetworkNote" hidden>This is an Evox network account. Changes here apply to Uno only &mdash; your Evox network profile isn&rsquo;t changed.</p>
+            <div class="st-actions">
+              <button type="submit" class="st-btn primary" id="stProfileSave">Save changes</button>
+              <div class="st-msg" id="stMsg-profile" role="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Security -->
+        <section class="st-panel" id="stPanel-security" role="tabpanel" aria-labelledby="stTab-security" data-panel="security" hidden>
+          <h3>Security</h3>
+          <p class="st-lead" id="stPwLead">Change your password.</p>
+          <form id="stPasswordForm" novalidate>
+            <input type="text" id="stPwUser" autocomplete="username" hidden tabindex="-1" aria-hidden="true">
+            <label class="st-field" id="stCurrentWrap">
+              <span>Current password</span>
+              <input type="password" id="stCurrentPw" autocomplete="current-password">
+            </label>
+            <label class="st-field">
+              <span>New password</span>
+              <input type="password" id="stNewPw" autocomplete="new-password" maxlength="128">
+              <small>At least 8 characters.</small>
+            </label>
+            <label class="st-field">
+              <span>Confirm new password</span>
+              <input type="password" id="stConfirmPw" autocomplete="new-password" maxlength="128">
+            </label>
+            <div class="st-actions">
+              <button type="submit" class="st-btn primary" id="stPwSave">Update password</button>
+              <div class="st-msg" id="stMsg-password" role="status" aria-live="polite"></div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Notifications -->
+        <section class="st-panel" id="stPanel-notifications" role="tabpanel" aria-labelledby="stTab-notifications" data-panel="notifications" hidden>
+          <h3>Notifications</h3>
+          <p class="st-lead">Choose which Tazro push notifications you get.</p>
+          <p class="st-note" id="stPushOff" hidden>Push notifications aren&rsquo;t available on the server right now.</p>
+          <div class="st-switches" id="stPrefs">
+            <label class="st-switch"><span><b>Payments received</b><small>When money arrives in your account.</small></span><input type="checkbox" data-pref="received"><i></i></label>
+            <label class="st-switch"><span><b>Incoming scheduled payments</b><small>Recurring income and future payments due to you.</small></span><input type="checkbox" data-pref="scheduledIn"><i></i></label>
+            <label class="st-switch"><span><b>Upcoming payments</b><small>A reminder the evening before a payment is due.</small></span><input type="checkbox" data-pref="upcoming"><i></i></label>
+            <label class="st-switch"><span><b>Weekly recap</b><small>A summary of your week, on Mondays.</small></span><input type="checkbox" data-pref="weekly"><i></i></label>
+            <label class="st-switch"><span><b>Hide amounts</b><small>Keep money amounts out of notification text.</small></span><input type="checkbox" data-pref="hideAmounts"><i></i></label>
+          </div>
+          <div class="st-msg" id="stMsg-notifications" role="status" aria-live="polite"></div>
+          <span class="st-hint">Devices are added from the Tazro app. These switches apply to all of them.</span>
+        </section>
+
+        <!-- Danger zone -->
+        <section class="st-panel" id="stPanel-danger" role="tabpanel" aria-labelledby="stTab-danger" data-panel="danger" hidden>
+          <h3>Danger zone</h3>
+          <p class="st-lead">Deleting your account is permanent.</p>
+          <div class="st-danger-card">
+            <p>This removes your Uno profile, finance data (Tazro), notification settings and uploaded photo. It can&rsquo;t be undone.</p>
+            <p class="st-note" id="stDeleteNetworkNote" hidden>Your Evox network account is not deleted. Logging in with it later creates a fresh, empty Uno account.</p>
+            <button type="button" class="st-btn danger" id="stDeleteStart">Delete account&hellip;</button>
+            <form id="stDeleteForm" novalidate hidden>
+              <label class="st-field">
+                <span id="stDeleteLabel">Password</span>
+                <input type="password" id="stDeleteInput" autocomplete="current-password">
+              </label>
+              <div class="st-btn-row">
+                <button type="submit" class="st-btn danger solid" id="stDeleteConfirm" disabled>Delete forever</button>
+                <button type="button" class="st-btn ghost" id="stDeleteCancel">Cancel</button>
+              </div>
+            </form>
+            <div class="st-msg" id="stMsg-danger" role="status" aria-live="polite"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 

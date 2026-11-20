@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Florida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="../uno-transparent-square-white.png">
+  <link rel="apple-touch-icon" href="../uno-transparent-square-white.png">
+  <meta name="theme-color" content="#121212">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Florida">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+  <!-- Shown in a browser tab: ask to install first -->
+  <div class="screen center" id="install-screen" hidden>
+    <img class="logo" src="../uno-transparent-square-white.png" alt="Florida">
+    <h1>Welcome!</h1>
+    <p>To receive notifications, add Florida to your home screen.</p>
+    <button class="btn" id="install-skip" type="button">Continue anyway</button>
+  </div>
+
+  <!-- Signed out -->
+  <div class="screen center" id="signin-screen" hidden>
+    <img class="logo" src="../uno-transparent-square-white.png" alt="Florida">
+    <h1>Florida</h1>
+    <p>One place for notifications from all your Evox Uno apps.</p>
+    <button class="btn" id="signin-btn" type="button">Sign in with Evox Uno</button>
+  </div>
+
+  <!-- Main -->
+  <main class="screen" id="main" hidden>
+    <header class="header">
+      <div class="header-text">
+        <span class="label" id="greeting">Hello</span>
+        <h1>Florida</h1>
+      </div>
+      <button class="avatar" id="avatar-btn" type="button" aria-label="Account">
+        <img id="avatar-img" alt="" hidden><span id="avatar-initial"></span>
+      </button>
+    </header>
+
+    <section class="card">
+      <div class="row">
+        <div class="row-text">
+          <div class="row-title">Notifications</div>
+          <div class="row-sub" id="ntf-note">Receive alerts from your connected apps on this device.</div>
+        </div>
+        <label class="switch"><input type="checkbox" id="ntf-master"><span class="track"></span></label>
+      </div>
+      <button class="link-btn" id="ntf-test" type="button" disabled>Send test notification</button>
+    </section>
+
+    <h2 class="section-title">Apps</h2>
+    <section class="card list" id="apps"></section>
+
+    <h2 class="section-title">Recent</h2>
+    <section class="card list" id="feed">
+      <div class="empty">No notifications yet</div>
+    </section>
+  </main>
+
+  <!-- Account sheet -->
+  <div class="overlay" id="sheet">
+    <div class="sheet">
+      <div class="handle"></div>
+      <div class="sheet-account">
+        <div class="avatar lg"><img id="sheet-img" alt="" hidden><span id="sheet-initial"></span></div>
+        <div>
+          <div class="row-title" id="sheet-name"></div>
+          <div class="row-sub" id="sheet-user"></div>
+        </div>
+      </div>
+      <button class="btn danger" id="signout-btn" type="button">Sign out</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
