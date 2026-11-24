@@ -6,15 +6,55 @@ document.querySelectorAll('#installBtn, [data-app-link]').forEach((el) => {
     el.setAttribute('href', TAZRO_APP_URL);
 });
 
-/* ─────────── Phone demo tabs ─────────── */
+/* ─────────── Live app demo (iframe) ───────────
+   The phone shows the real Tazro app in demo mode (?demo=1 → fake data, nothing is saved).
+   Demo data can be changed here, or passed as ?data=<JSON> / sessionStorage "tazroDemo"
+   (see tazro/js/demo.js for every supported key). */
+const DEMO_SETTINGS = {
+    name: 'Νίκος',
+    username: 'nikos',
+    balance: 2480.5,
+    savings: 930,
+    insetTop: 46,    // px kept free for the phone's dynamic island
+    insetBottom: 6,  // px kept free at the bottom of the phone
+};
+
+// Landing tab → screen inside the app
+const DEMO_VIEWS = { overview: 'home', spending: 'transactions', debts: 'debts', savings: 'savings' };
+
 const demoTabs = Array.from(document.querySelectorAll('.demo-tabs [role="tab"]'));
-const screens = Array.from(document.querySelectorAll('.screen'));
-const phoneNavButtons = Array.from(document.querySelectorAll('.phone-nav button'));
+const appFrame = document.getElementById('appFrame');
+let currentScreen = 'overview';
+
+function demoUrl(view) {
+    const params = new URLSearchParams({ demo: '1', view, ...DEMO_SETTINGS });
+    return TAZRO_APP_URL + '?' + params.toString();
+}
+
+if (appFrame) {
+    appFrame.src = demoUrl(DEMO_VIEWS[currentScreen]);
+}
 
 function showScreen(name) {
-    screens.forEach((screen) => {
-        screen.classList.toggle('active', screen.id === `screen-${name}`);
-    });
+    currentScreen = name;
+    const view = DEMO_VIEWS[name] || 'home';
+
+    if (appFrame) {
+        let switched = false;
+        try {
+            // Same origin: switch screen inside the running app, no reload
+            const app = appFrame.contentWindow;
+            if (app && typeof app.switchView === 'function' && app.document.getElementById(view)) {
+                app.switchView(view);
+                switched = true;
+            }
+        } catch (err) {
+            // cross-origin or not loaded yet → fall back to reloading with the right screen
+        }
+        if (!switched) {
+            appFrame.src = demoUrl(view);
+        }
+    }
 
     demoTabs.forEach((tab) => {
         const selected = tab.dataset.go === name;
@@ -30,13 +70,6 @@ function showScreen(name) {
             }
         }
     });
-
-    phoneNavButtons.forEach((btn) => {
-        btn.classList.toggle('active', btn.dataset.go === name);
-    });
-
-    // Lets a screen replay its intro animation when it is opened
-    document.dispatchEvent(new CustomEvent('tazro:screenchange', { detail: { name } }));
 }
 
 demoTabs.forEach((tab, index) => {
@@ -53,11 +86,6 @@ demoTabs.forEach((tab, index) => {
         next.focus();
         showScreen(next.dataset.go);
     });
-});
-
-// The mock bottom bar inside the phone is clickable for mouse/touch users
-phoneNavButtons.forEach((btn) => {
-    btn.addEventListener('click', () => showScreen(btn.dataset.go));
 });
 
 /* ─────────── Finance score ring ─────────── */

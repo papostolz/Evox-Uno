@@ -1284,9 +1284,11 @@
 
   </div>
 
+  <!-- Demo mode (landing-page iframe): must load before app.js. No-op unless ?demo=1 / sessionStorage "tazroDemo". -->
+  <script src="js/demo.js"></script>
   <script src="js/app.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && !window.__TAZRO_DEMO__) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => {
           // Look for a new version whenever the app comes back to the foreground

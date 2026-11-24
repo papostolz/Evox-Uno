@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./savings-app.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
@@ -25,6 +24,15 @@
   <meta property="og:type" content="website">
   <meta property="og:description" content="Έξοδα, στόχοι αποταμίευσης, χρέη και επαναλαμβανόμενες πληρωμές σε μία εφαρμογή, με βαθμολογία που αποτυπώνει την οικονομική σας υγεία.">
   <meta property="og:image" content="./assets/tazro.png">
+  <style>
+    /* Live app inside the phone mock-up */
+    .phone { position: relative; overflow: hidden; }
+    .phone-frame {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: 0; display: block; background: #121212; border-radius: inherit;
+    }
+    .phone-island { z-index: 5; pointer-events: none; }
+  </style>
 </head>
 
 <body>
@@ -91,354 +99,16 @@
         <div class="phone" aria-label="Προεπισκόπηση της εφαρμογής Tazro">
           <div class="phone-island" aria-hidden="true"></div>
 
-          <!-- Overview -->
-          <div class="screen active" id="screen-overview" role="tabpanel" aria-labelledby="tab-overview">
-            <div class="s-status"><span>9:41</span><span class="s-status-icons" aria-hidden="true"></span></div>
-            <div class="s-head">
-              <div>
-                <span class="s-hello">Καλημέρα, Νίκο</span>
-              </div>
-              <span class="s-bell" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 003.4 0"/></svg>
-              </span>
-            </div>
-
-            <div class="s-balance">
-              <span class="s-label">Συνολικό υπόλοιπο</span>
-              <strong class="s-amount" data-count="2480.5">2.480,50€</strong>
-              <div class="s-chips">
-                <span class="chip up">+1.450€ Έσοδα</span>
-                <span class="chip down">−612€ Έξοδα</span>
-              </div>
-            </div>
-
-            <div class="s-score">
-              <div class="s-score-top"><span>Βαθμολογία Οικονομικών</span><b>78</b></div>
-              <div class="s-track"><i style="--w:78%"></i></div>
-            </div>
-
-            <span class="s-section">Πρόσφατα</span>
-            <ul class="s-list">
-              <li><span class="dot teal"></span><span class="s-name">Σκλαβενίτης<small>Σούπερ μάρκετ</small></span><b class="neg">−42,30€</b></li>
-              <li><span class="dot indigo"></span><span class="s-name">Μισθός<small>Έσοδα</small></span><b class="pos">+1.450,00€</b></li>
-              <li><span class="dot pink"></span><span class="s-name">Spotify<small>Συνδρομή</small></span><b class="neg">−10,99€</b></li>
-            </ul>
-          </div>
-
-          <!-- Spending -->
-          <div class="screen" id="screen-spending" role="tabpanel" aria-labelledby="tab-spending">
-            <div class="s-status"><span>9:41</span><span class="s-status-icons" aria-hidden="true"></span></div>
-            <div class="s-head"><span class="s-title">Στατιστικά εξόδων</span></div>
-
-            <div class="s-balance slim">
-              <span class="s-label">Μέσος όρος ανά ημέρα</span>
-              <strong class="s-amount">38,40€</strong>
-            </div>
-
-            <span class="s-section">Μ.Ο. ανά ημέρα της εβδομάδας</span>
-            <div class="s-bars" aria-hidden="true">
-              <div><i style="--h:42%"></i><span>Δε</span></div>
-              <div><i style="--h:30%"></i><span>Τρ</span></div>
-              <div><i style="--h:36%"></i><span>Τε</span></div>
-              <div><i style="--h:48%"></i><span>Πε</span></div>
-              <div><i style="--h:64%"></i><span>Πα</span></div>
-              <div class="hi"><i style="--h:100%"></i><span>Σα</span></div>
-              <div><i style="--h:58%"></i><span>Κυ</span></div>
-            </div>
-
-            <ul class="s-cats">
-              <li><span>Σούπερ μάρκετ</span><b>248€</b><i style="--w:82%;--c:var(--teal)"></i></li>
-              <li><span>Μεταφορές</span><b>120€</b><i style="--w:44%;--c:var(--indigo)"></i></li>
-              <li><span>Ψυχαγωγία</span><b>96€</b><i style="--w:34%;--c:var(--pink)"></i></li>
-            </ul>
-          </div>
-
-          <!-- Debts -->
-          <div class="screen" id="screen-debts" role="tabpanel" aria-labelledby="tab-debts">
-            <div class="s-status"><span>9:41</span><span class="s-status-icons" aria-hidden="true"></span></div>
-            <div class="s-head"><span class="s-title">Χρέη</span></div>
-
-            <div class="s-debt-sum">
-              <div><span class="s-label">Χρωστάω</span><strong class="neg">18,00€</strong></div>
-              <div><span class="s-label">Μου Χρωστούν</span><strong class="pos">63,00€</strong></div>
-            </div>
-            <div class="s-split" aria-hidden="true"><i class="owe" style="--w:22%"></i><i class="lent" style="--w:78%"></i></div>
-
-            <span class="s-section">Ανοιχτά</span>
-            <ul class="s-list">
-              <li><span class="dot pink"></span><span class="s-name">Γιώργος<small>Δείπνο · Χρωστάω</small></span><b class="neg">18,00€</b></li>
-              <li><span class="dot teal"></span><span class="s-name">Ελένη<small>Εισιτήρια · Μου Χρωστούν</small></span><b class="pos">45,00€</b></li>
-              <li><span class="dot teal"></span><span class="s-name">Μάρκος<small>Καύσιμα · Μου Χρωστούν</small></span><b class="pos">18,00€</b></li>
-            </ul>
-          </div>
-
-          <!-- Savings -->
-          <div class="screen" id="screen-savings" role="tabpanel" aria-labelledby="tab-savings">
-            <div class="s-status"><span>9:41</span><span class="s-status-icons" aria-hidden="true"></span></div>
-            <div class="sv-scroll">
-              <div class="sv-app">
-                    <div class="view-header">
-                      <h1>Αποταμίευση</h1>
-                    </div>
-
-                    <div style="display: flex;align-items: center;justify-content: center;width: 100%;color:#d5d5d5;">
-                      <h4>Βαθμολογία Οικονομικών</h4>
-                    </div>
-
-                    <!-- Finance score hero (radial rings) -->
-                    <div class="score-hero animate-in" id="score-hero">
-                      <svg class="score-svg" id="score-svg" viewBox="0 0 360 360" role="img" aria-label="Οικονομική βαθμολογία">
-                        <defs>
-                          <path id="score-arc-top" d="M 60.5 79.7 A 156 156 0 0 1 299.5 79.7" />
-                          <path id="score-arc-right" d="M 280.3 60.5 A 156 156 0 0 1 280.3 299.5" />
-                          <path id="score-arc-left" d="M 79.7 299.5 A 156 156 0 0 1 79.7 60.5" />
-                          <path id="score-arc-bottom" d="M 52.8 286.7 A 166 166 0 0 0 307.2 286.7" />
-                        </defs>
-
-                        <!-- curved section labels -->
-                        <text class="score-lbl"><textPath href="#score-arc-top" startOffset="50%" text-anchor="middle">ΕΞΟΔΑ</textPath></text>
-                        <text class="score-lbl"><textPath href="#score-arc-right" startOffset="50%" text-anchor="middle">ΧΡΕΗ</textPath></text>
-                        <text class="score-lbl"><textPath href="#score-arc-bottom" startOffset="50%" text-anchor="middle">ΑΠΟΤΑΜΙΕΥΣΗ</textPath></text>
-                        <text class="score-lbl"><textPath href="#score-arc-left" startOffset="50%" text-anchor="middle">ΣΤΟΧΟΙ</textPath></text>
-
-                        <!-- decorative dots -->
-                  <g class="score-grey">
-                    <circle cx="257.8" cy="102.2" r="15"/>
-                    <circle cx="291.0" cy="69.0" r="5.5"/>
-                    <circle cx="257.8" cy="257.8" r="15"/>
-                    <circle cx="291.0" cy="291.0" r="5.5"/>
-                    <circle cx="102.2" cy="257.8" r="15"/>
-                    <circle cx="69.0" cy="291.0" r="5.5"/>
-                    <circle cx="102.2" cy="102.2" r="15"/>
-                    <circle cx="69.0" cy="69.0" r="5.5"/>
-                  </g>
-                  <g class="score-deco" style="--c:var(--sc-spend)">
-                    <circle class="deco-dot" cx="120.1" cy="62.4" r="11" style="--d:0.00s"/>
-                    <circle class="deco-dot" cx="239.9" cy="62.4" r="11" style="--d:0.90s"/>
-                    <circle class="deco-pale" cx="99.1" cy="45.4" r="3.4" style="--d:0.40s"/>
-                    <circle class="deco-pale" cx="260.9" cy="45.4" r="3.4" style="--d:1.00s"/>
-                  </g>
-                  <g class="score-deco" style="--c:var(--sc-debts)">
-                    <circle class="deco-dot" cx="297.6" cy="120.1" r="11" style="--d:0.45s"/>
-                    <circle class="deco-dot" cx="297.6" cy="239.9" r="11" style="--d:1.35s"/>
-                    <circle class="deco-pale" cx="314.6" cy="99.1" r="3.4" style="--d:0.70s"/>
-                    <circle class="deco-pale" cx="314.6" cy="260.9" r="3.4" style="--d:1.30s"/>
-                  </g>
-                  <g class="score-deco" style="--c:var(--sc-save)">
-                    <circle class="deco-dot" cx="239.9" cy="297.6" r="11" style="--d:0.90s"/>
-                    <circle class="deco-dot" cx="120.1" cy="297.6" r="11" style="--d:1.80s"/>
-                    <circle class="deco-pale" cx="260.9" cy="314.6" r="3.4" style="--d:1.00s"/>
-                    <circle class="deco-pale" cx="99.1" cy="314.6" r="3.4" style="--d:1.60s"/>
-                  </g>
-                  <g class="score-deco" style="--c:var(--sc-goals)">
-                    <circle class="deco-dot" cx="62.4" cy="239.9" r="11" style="--d:1.35s"/>
-                    <circle class="deco-dot" cx="62.4" cy="120.1" r="11" style="--d:2.25s"/>
-                    <circle class="deco-pale" cx="45.4" cy="260.9" r="3.4" style="--d:1.30s"/>
-                    <circle class="deco-pale" cx="45.4" cy="99.1" r="3.4" style="--d:1.90s"/>
-                  </g>
-
-                        <!-- score rings -->
-                  <g class="score-ring" style="--c:var(--sc-spend)" transform="translate(180 70)">
-                    <circle class="ring-fill" r="34"/>
-                    <circle class="ring-track" r="34"/>
-                    <circle class="ring-arc" id="arc-spend" r="34" transform="rotate(-90)"/>
-                    <text class="ring-val" id="val-spend" text-anchor="middle" dy=".35em">–</text>
-                  </g>
-                  <g class="score-ring" style="--c:var(--sc-debts)" transform="translate(290 180)">
-                    <circle class="ring-fill" r="34"/>
-                    <circle class="ring-track" r="34"/>
-                    <circle class="ring-arc" id="arc-debts" r="34" transform="rotate(-90)"/>
-                    <text class="ring-val" id="val-debts" text-anchor="middle" dy=".35em">–</text>
-                  </g>
-                  <g class="score-ring" style="--c:var(--sc-save)" transform="translate(180 290)">
-                    <circle class="ring-fill" r="34"/>
-                    <circle class="ring-track" r="34"/>
-                    <circle class="ring-arc" id="arc-save" r="34" transform="rotate(-90)"/>
-                    <text class="ring-val" id="val-save" text-anchor="middle" dy=".35em">–</text>
-                  </g>
-                  <g class="score-ring" style="--c:var(--sc-goals)" transform="translate(70 180)">
-                    <circle class="ring-fill" r="34"/>
-                    <circle class="ring-track" r="34"/>
-                    <circle class="ring-arc" id="arc-goals" r="34" transform="rotate(-90)"/>
-                    <text class="ring-val" id="val-goals" text-anchor="middle" dy=".35em">–</text>
-                  </g>
-
-                        <!-- total -->
-                        <text class="score-total" id="score-total" x="180" y="197" text-anchor="middle">–</text>
-                        <text class="score-outof" x="180" y="221" text-anchor="middle">/100</text>
-                      </svg>
-                    </div>
-
-                    <!-- Status: monthly change + rating -->
-                    <div class="score-status flat animate-in" id="score-status">
-                      <div class="score-status-left">
-                        <div class="score-arrow">
-                          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 19V5M5 12l7-7 7 7" />
-                          </svg>
-                        </div>
-                        <div class="score-pill" id="score-pill">—</div>
-                      </div>
-                      <div class="score-status-right">
-                        <div class="score-rating" id="score-rating">—</div>
-                        <div class="score-rating-sub" id="score-rating-sub">—</div>
-                      </div>
-                    </div>
-
-                    <!-- Score breakdown -->
-                    <div class="score-grid animate-in">
-                      <div class="score-card" style="--c:var(--sc-spend)">
-                        <div class="score-card-top">
-                          <span class="score-card-label">Έξοδα</span>
-                          <span class="score-delta" id="delta-spend"></span>
-                        </div>
-                        <div class="score-card-value"><span id="sc-val-spend">–</span><small>/100</small></div>
-                        <div class="score-card-detail" id="sc-det-spend">—</div>
-                        <div class="score-card-bar"><span id="sc-bar-spend"></span></div>
-                      </div>
-                      <div class="score-card" style="--c:var(--sc-save)">
-                        <div class="score-card-top">
-                          <span class="score-card-label">Αποταμίευση</span>
-                          <span class="score-delta" id="delta-save"></span>
-                        </div>
-                        <div class="score-card-value"><span id="sc-val-save">–</span><small>/100</small></div>
-                        <div class="score-card-detail" id="sc-det-save">—</div>
-                        <div class="score-card-bar"><span id="sc-bar-save"></span></div>
-                      </div>
-                      <div class="score-card" style="--c:var(--sc-goals)">
-                        <div class="score-card-top">
-                          <span class="score-card-label">Στόχοι</span>
-                          <span class="score-delta" id="delta-goals"></span>
-                        </div>
-                        <div class="score-card-value"><span id="sc-val-goals">–</span><small>/100</small></div>
-                        <div class="score-card-detail" id="sc-det-goals">—</div>
-                        <div class="score-card-bar"><span id="sc-bar-goals"></span></div>
-                      </div>
-                      <div class="score-card" style="--c:var(--sc-debts)">
-                        <div class="score-card-top">
-                          <span class="score-card-label">Χρέη</span>
-                          <span class="score-delta" id="delta-debts"></span>
-                        </div>
-                        <div class="score-card-value"><span id="sc-val-debts">–</span><small>/100</small></div>
-                        <div class="score-card-detail" id="sc-det-debts">—</div>
-                        <div class="score-card-bar"><span id="sc-bar-debts"></span></div>
-                      </div>
-                    </div>
-
-                    <!-- Dual balance display -->
-                    <div class="dual-balance-row">
-
-                      <div class="balance-source-card" id="main-balance-card">
-                        <div class="bsc-label">Κύριο</div>
-                        <div class="bsc-amount" id="savings-main-balance">$0.00</div>
-                        <div class="bsc-sub">Διαθέσιμο</div>
-                      </div>
-
-                      <!-- Directional arrows -->
-                      <div class="xfer-arrows" id="transfer-arrow-indicator">
-                        <div class="xfer-arrow xfer-right">
-                          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path d="M5 12h14M15 8l4 4-4 4" />
-                          </svg>
-                        </div>
-                        <div class="xfer-arrow xfer-left">
-                          <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path d="M19 12H5M9 8l-4 4 4 4" />
-                          </svg>
-                        </div>
-                      </div>
-
-                      <div class="balance-source-card savings-card" id="savings-balance-card">
-                        <div class="bsc-label">Αποταμίευση</div>
-                        <div class="bsc-amount" id="savings-amount">$0.00</div>
-                        <div class="bsc-sub positive" id="savings-trend">—</div>
-                      </div>
-
-                    </div>
-
-                    <!-- Transfer panel -->
-                    <div class="transfer-panel" id="transfer-panel">
-                      <div class="transfer-panel-header">
-                        <div class="transfer-panel-title">
-                          <span class="transfer-panel-icon">
-                            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
-                              stroke-linejoin="round">
-                              <path d="M7 7h13M16 3l4 4-4 4M17 17H4M8 13l-4 4 4 4" />
-                            </svg>
-                          </span>
-                          <h3>Μεταφορά</h3>
-                        </div>
-                        <span class="transfer-panel-hint" id="transfer-panel-hint">από κύριο υπόλοιπο</span>
-                      </div>
-
-                      <!-- Account selector -->
-                      <div class="debt-type-selector savings-account-selector" id="savings-account-selector">
-                        <button class="debt-type-btn savings-account-btn active" data-account="main">Κύριο</button>
-                        <button class="debt-type-btn savings-account-btn" data-account="savings">Αποταμίευση</button>
-                      </div>
-
-                      <!-- Amount input -->
-                      <label class="transfer-amount-input" for="transfer-amount">
-                        <input type="number" id="transfer-amount" placeholder="0.00" step="0.01" min="0" inputmode="decimal">
-                        <span class="transfer-currency">€</span>
-                      </label>
-
-                      <!-- Slider -->
-                      <div class="transfer-slider">
-                        <input type="range" class="slider-track" id="transfer-slider" min="0" max="100" value="0">
-                        <div class="slider-labels">
-                          <span>0€</span>
-                          <span>Διαθέσιμο <b id="slider-max">—</b></span>
-                        </div>
-                      </div>
-
-                      <!-- Quick amounts -->
-                      <div class="transfer-chips" id="transfer-chips">
-                        <button type="button" class="transfer-chip" data-pct="25">25%</button>
-                        <button type="button" class="transfer-chip" data-pct="50">50%</button>
-                        <button type="button" class="transfer-chip" data-pct="75">75%</button>
-                        <button type="button" class="transfer-chip" data-pct="100">Όλο</button>
-                      </div>
-
-                      <!-- Single action button driven by selected source account -->
-                      <div class="transfer-dir-btns">
-                        <button class="transfer-dir-btn save" id="transfer-action-btn">
-                          <svg id="transfer-action-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M15 8l4 4-4 4" />
-                          </svg>
-                          <div class="tdb-text">
-                            <span class="tdb-main" id="transfer-action-main">Αποθήκευση</span>
-                            <span class="tdb-sub" id="transfer-action-sub">Κύριο → Αποταμίευση</span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    <!-- Goals -->
-                    <div class="section-header">
-                      <h2>Στόχοι</h2>
-                    </div>
-                    <div class="goals-section" id="goals-list"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="phone-nav" role="presentation">
-            <button type="button" data-go="overview" class="active" tabindex="-1" aria-hidden="true">Αρχική</button>
-            <button type="button" data-go="spending" tabindex="-1" aria-hidden="true">Ιστορικό</button>
-            <button type="button" data-go="debts" tabindex="-1" aria-hidden="true">Χρέη</button>
-            <button type="button" data-go="savings" tabindex="-1" aria-hidden="true">Αποταμίευση</button>
-          </div>
+          <!-- The real Tazro app, running in demo mode with fake data (see tazro/js/demo.js) -->
+          <iframe class="phone-frame" id="appFrame" title="Tazro – ζωντανή επίδειξη της εφαρμογής"
+            loading="lazy" referrerpolicy="same-origin"></iframe>
         </div>
 
         <div class="demo-tabs" role="tablist" aria-label="Προεπισκόπηση οθόνης του Tazro">
-          <button role="tab" id="tab-overview" data-go="overview" aria-selected="true" aria-controls="screen-overview">Επισκόπηση</button>
-          <button role="tab" id="tab-spending" data-go="spending" aria-selected="false" aria-controls="screen-spending" tabindex="-1">Έξοδα</button>
-          <button role="tab" id="tab-debts" data-go="debts" aria-selected="false" aria-controls="screen-debts" tabindex="-1">Χρέη</button>
-          <button role="tab" id="tab-savings" data-go="savings" aria-selected="false" aria-controls="screen-savings" tabindex="-1">Αποταμίευση</button>
+          <button role="tab" id="tab-overview" data-go="overview" aria-selected="true" aria-controls="appFrame">Επισκόπηση</button>
+          <button role="tab" id="tab-spending" data-go="spending" aria-selected="false" aria-controls="appFrame" tabindex="-1">Έξοδα</button>
+          <button role="tab" id="tab-debts" data-go="debts" aria-selected="false" aria-controls="appFrame" tabindex="-1">Χρέη</button>
+          <button role="tab" id="tab-savings" data-go="savings" aria-selected="false" aria-controls="appFrame" tabindex="-1">Αποταμίευση</button>
         </div>
       </div>
     </section>
@@ -627,7 +297,6 @@
   </footer>
 
   <script src="./script.js"></script>
-  <script src="./savings-demo.js"></script>
 </body>
 
 </html>
