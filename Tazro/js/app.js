@@ -7590,7 +7590,7 @@ function profileImgFallback(img) {
 
 function renderProfileButton() {
   const acc = getStoredAccount();
-  const pfp = acc.pfp || "tazro.png";
+  const pfp = acc.pfp || "/tazro-info/default.png";
   const btnImg = document.getElementById("profile-btn-img");
   const accImg = document.getElementById("acc-avatar-img");
   [btnImg, accImg].forEach((img) => {

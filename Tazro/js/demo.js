@@ -14,6 +14,7 @@
      2) sessionStorage: sessionStorage.setItem("tazroDemo", JSON.stringify({...}))
                         (same-origin parent page; only honoured while the app is inside an iframe,
                          so a leftover key can never turn the real app into a demo)
+     3) iframe name:    <iframe name='tazroDemo:{"name":"Maria"}'> (JSON or base64 JSON; framed only)
      ?demo=0 forces it off.
 
    HOW TO PASS DUMMY DATA (everything is optional, URL wins over sessionStorage)
@@ -105,7 +106,14 @@
     ssRaw = sessionStorage.getItem(SS_KEY);
   } catch (_) {}
 
-  if (urlOff || !(urlOn || (framed && ssRaw !== null))) {
+  // third channel: the iframe's name ("tazroDemo" or "tazroDemo:<JSON|base64>"), set by the parent page.
+  // It survives redirects that drop the query string and works for cross-origin parents too.
+  var nameRaw = null;
+  try {
+    if (framed && /^tazroDemo/.test(window.name || "")) nameRaw = String(window.name).replace(/^tazroDemo:?/, "");
+  } catch (_) {}
+
+  if (urlOff || !(urlOn || (framed && (ssRaw !== null || nameRaw !== null)))) {
     window.__TAZRO_DEMO__ = false;
     return;
   }
@@ -114,6 +122,9 @@
   var cfg = {};
   var fromSS = parseLoose(ssRaw);
   if (isObj(fromSS)) Object.keys(fromSS).forEach(function (k) { cfg[k] = fromSS[k]; });
+
+  var fromName = parseLoose(nameRaw);
+  if (isObj(fromName)) Object.keys(fromName).forEach(function (k) { cfg[k] = fromName[k]; });
 
   var fromUrlData = parseLoose(params.get("data"));
   if (isObj(fromUrlData)) Object.keys(fromUrlData).forEach(function (k) { cfg[k] = fromUrlData[k]; });
@@ -703,6 +714,7 @@
 
   // ------------------------------------------------------------------ switch off what makes no sense in a demo
   window.__TAZRO_DEMO__ = { active: true, config: cfg };
+  try { console.info("[tazro] demo mode active"); } catch (_) {}
   document.documentElement.setAttribute("data-demo", "1");
 
   // room for a phone mock-up's island / home bar (the iframe has no real safe-area insets)

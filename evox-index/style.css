@@ -417,6 +417,44 @@ nav {
   .tile-story, .tile-platforms, .tile-vision, .tile-data, .tile-family { grid-column: auto; min-height: 0; }
 }
 
+/* --- Project landing page cards --- */
+.projects {
+  padding-bottom: clamp(48px, 8vh, 80px);
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.project-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+.project-card .text-link {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.project-card:hover .text-link::after {
+  transform: translateX(3px);
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 /* --- Apps tile (filled by evox-index/uno-apps.js) --- */
 .tile-family .apps-box {
   margin-top: auto;

@@ -11,13 +11,17 @@ document.querySelectorAll('#installBtn, [data-app-link]').forEach((el) => {
    Demo data can be changed here, or passed as ?data=<JSON> / sessionStorage "tazroDemo"
    (see tazro/js/demo.js for every supported key). */
 const DEMO_SETTINGS = {
-    name: 'Νίκος',
+    name: 'Νίκο',
     username: 'nikos',
     balance: 2480.5,
     savings: 930,
-    insetTop: 46,    // px kept free for the phone's dynamic island
-    insetBottom: 6,  // px kept free at the bottom of the phone
 };
+
+// The app is laid out as if the screen were this many CSS px wide, then scaled down to fit the
+// phone. Bigger number = smaller app inside the phone (390 ≈ a real iPhone, 430 ≈ slightly smaller, 520 ≈ much smaller).
+const DEMO_VIRTUAL_WIDTH = 350;
+const DEMO_INSET_TOP = 35;    // real px kept free at the top (status bar + island)
+const DEMO_INSET_BOTTOM = 6;  // real px at the bottom
 
 // Landing tab → screen inside the app
 const DEMO_VIEWS = { overview: 'home', spending: 'transactions', debts: 'debts', savings: 'savings' };
@@ -26,13 +30,69 @@ const demoTabs = Array.from(document.querySelectorAll('.demo-tabs [role="tab"]')
 const appFrame = document.getElementById('appFrame');
 let currentScreen = 'overview';
 
-function demoUrl(view) {
-    const params = new URLSearchParams({ demo: '1', view, ...DEMO_SETTINGS });
-    return TAZRO_APP_URL + '?' + params.toString();
+const demoPhone = appFrame ? appFrame.closest('.phone') : null;
+let demoScale = 1;
+
+// Lay the iframe out at DEMO_VIRTUAL_WIDTH and scale it down to exactly fill the phone
+function layoutDemoFrame() {
+    if (!appFrame || !demoPhone) {
+        return;
+    }
+    const w = demoPhone.clientWidth;
+    const h = demoPhone.clientHeight;
+    if (!w || !h) {
+        return;
+    }
+    demoScale = w / DEMO_VIRTUAL_WIDTH;
+    Object.assign(appFrame.style, {
+        inset: 'auto',
+        top: '0',
+        left: '0',
+        width: DEMO_VIRTUAL_WIDTH + 'px',
+        height: Math.ceil(h / demoScale) + 'px',
+        transform: `scale(${demoScale})`,
+        transformOrigin: 'top left',
+        borderRadius: '0',
+    });
+}
+
+function demoConfig(view) {
+    return {
+        ...DEMO_SETTINGS,
+        view,
+        // insets are in the app's own (unscaled) pixels
+        insetTop: Math.round(DEMO_INSET_TOP / demoScale),
+        insetBottom: Math.round(DEMO_INSET_BOTTOM / demoScale),
+    };
+}
+
+// The demo config is handed over on three independent channels, so a redirect that drops the
+// query string (or a blocked storage) can never leave the iframe showing the real account:
+// the iframe name, sessionStorage (same-origin) and the URL itself.
+function loadDemo(view) {
+    const cfg = demoConfig(view);
+    appFrame.name = 'tazroDemo:' + JSON.stringify(cfg);
+    try {
+        sessionStorage.setItem('tazroDemo', JSON.stringify(cfg));
+    } catch (err) { /* storage blocked: the other channels still work */ }
+    appFrame.src = TAZRO_APP_URL + '?' + new URLSearchParams({ demo: '1', ...cfg }).toString();
 }
 
 if (appFrame) {
-    appFrame.src = demoUrl(DEMO_VIEWS[currentScreen]);
+    layoutDemoFrame();
+    loadDemo(DEMO_VIEWS[currentScreen]);
+    appFrame.addEventListener('load', () => {
+        try {
+            if (!appFrame.contentWindow.__TAZRO_DEMO__) {
+                console.warn('[tazro] the app inside the iframe is NOT in demo mode: is tazro/js/demo.js deployed (and loaded before app.js)?');
+            }
+        } catch (err) { /* cross-origin: cannot check */ }
+    });
+    if (demoPhone && 'ResizeObserver' in window) {
+        new ResizeObserver(layoutDemoFrame).observe(demoPhone);
+    } else {
+        window.addEventListener('resize', layoutDemoFrame);
+    }
 }
 
 function showScreen(name) {
@@ -52,7 +112,7 @@ function showScreen(name) {
             // cross-origin or not loaded yet → fall back to reloading with the right screen
         }
         if (!switched) {
-            appFrame.src = demoUrl(view);
+            loadDemo(view);
         }
     }
 
